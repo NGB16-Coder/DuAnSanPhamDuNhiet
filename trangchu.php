@@ -183,34 +183,34 @@
                 <div class="row justify-content-left">
                     <?php
                         $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
-                        foreach ($listProduct as $product) {
-                            // Kiểm tra nếu sản phẩm đã được hiển thị
-                            if (in_array($product['sp_id'], $tempProducts)) {
-                                continue; // Bỏ qua nếu sản phẩm đã hiển thị
-                            }
-                        $tempProducts[] = $product['sp_id'];?>
-                            
-                            <div class="col-3 mb-4">
-                                <div class="product-item text-center">
-                                    <a
-                                        href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id']; ?>">
-                                        <div class="product-thumb">
-                                            <img src="<?php echo $product['img_sp']; ?>"
-                                                alt="Ảnh sản phẩm" class="img-fluid">
-                                            <!-- Thêm lớp img-fluid để hình ảnh co giãn -->
-                                        </div>
-                                        <p style="font-size: 1.3vw; font-weight:700;color:red">
-                                            <?php echo number_format($product['km_sp']); ?>₫
-                                            <span style="font-size: 1.1vw; text-decoration:line-through;color:gray">
-                                                <?php echo number_format($product['gia_sp']); ?>₫
-                                            </span>
-                                        </p>
-                                        <p style="color:burlywood; font-size:1.2vw">
-                                            <?php echo $product['ten_sp']; ?>
-                                        </p>
-                                    </a>
+    foreach ($listProduct as $product) {
+        // Kiểm tra nếu sản phẩm đã được hiển thị
+        if (in_array($product['sp_id'], $tempProducts)) {
+            continue; // Bỏ qua nếu sản phẩm đã hiển thị
+        }
+        $tempProducts[] = $product['sp_id'];?>
+
+                    <div class="col-3 mb-4">
+                        <div class="product-item text-center">
+                            <a
+                                href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id']; ?>">
+                                <div class="product-thumb">
+                                    <img src="<?php echo $product['img_sp']; ?>"
+                                        alt="Ảnh sản phẩm" class="img-fluid">
+                                    <!-- Thêm lớp img-fluid để hình ảnh co giãn -->
                                 </div>
-                            </div>
+                                <p style="font-size: 1.3vw; font-weight:700;color:red">
+                                    <?php echo number_format($product['km_sp']); ?>₫
+                                    <span style="font-size: 1.1vw; text-decoration:line-through;color:gray">
+                                        <?php echo number_format($product['gia_sp']); ?>₫
+                                    </span>
+                                </p>
+                                <p style="color:burlywood; font-size:1.2vw">
+                                    <?php echo $product['ten_sp']; ?>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
                     <?php } ?>
                 </div>
 
