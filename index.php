@@ -25,7 +25,7 @@ match ($act) {
     // Trang chủ
     'trang-chu' => (new HomeController())->trangchu(),
     'gioi-thieu' => (new HomeController())->gioiThieu(),
-    'chitietsanpham' => (new ProductController())->chiTietProduct(),
+    'chi-tiet-san-pham' => (new ProductController())->chiTietProduct(),
     'san-pham-theo-danh-muc' => (new ProductController())->productCategory(),
     'dang-nhap' => (new HomeController())->formDangNhap(),
     'check-dang-nhap' => (new HomeController())->dangNhap(),
@@ -33,4 +33,5 @@ match ($act) {
     'check-dang-ky' => (new HomeController())->dangKy(),
     'dang-xuat' => (new HomeController())->logout(),
     'xoa-ghi-nho' => (new HomeController())->xoaCookie(),
+    'lien-he' => (new HomeController())->lienHe(),
 };
