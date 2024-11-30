@@ -14,14 +14,24 @@ class ProductController
     public function chiTietProduct()
     {
         // Lấy ra thông tin sản phẩm
-        // $sp_id = $_GET['id'];
-        // $product = $this->product->getDetailProduct($sp_id);
-        // $listCategory = $this->category->getAllCategory(); // lấy dữ liệu vào mục thuộc danh mục
-        // if ($product) {
-        require_once "./views/detailProduct.php";
-        // } else {
-        //     header('location: ' . BASE_URL.'?act=trang-chu');
-        //  }
+        $sp_id = (int)$_GET['id'];
+        // $size_id = (int)$_GET['size_id'];
+        $product = $this->product->getProductById($sp_id);
+        $variants = $this->product->getVariantProduct($sp_id);
+        // Xác định size được chọn
+        $selectedSizeId = $_POST['size_id'] ?? $variants[0]['size_id']; // Mặc định là size đầu tiên
+
+        // Lấy thông tin biến thể theo size được chọn
+        $selectedVariant = $this->product->getVariantBySizeId($sp_id, $selectedSizeId);
+        // var_dump($product['dm_id']);
+        // die;
+        $productCategory = $this->product->getProductCategory($product['dm_id']);
+        $listCategory = $this->category->getAllCategory(); // lấy dữ liệu vào mục thuộc danh mục
+        if ($product && $variants) {
+            require_once "./views/detailProduct.php";
+        } else {
+            header('location: ' . BASE_URL.'?act=trang-chu');
+        }
     }
     public function productCategory()
     {
