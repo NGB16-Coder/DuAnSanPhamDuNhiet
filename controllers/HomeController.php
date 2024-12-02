@@ -169,6 +169,11 @@ class HomeController
     {
         require_once './views/xoaCookie.php';
     }
+    public function lienHe(){
+        $listCategory = $this->category->getAllCategory();
+        require_once './views/lienhe.php';
+
+    }
     public function thanhToan()
     {
         $listCategory = $this->category->getAllCategory();

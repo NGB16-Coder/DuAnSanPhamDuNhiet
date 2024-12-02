@@ -82,30 +82,10 @@
                                         <div class="pro-large-img img-zoom">
                                             <img src="<?= $product['img_sp'] ?>"
                                                 alt="product-details" />
+
                                         </div>
                                     </div>
-                                    <!-- <div class="pro-nav slick-row-10 slick-arrow-style">
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img1.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img2.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img3.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img4.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img5.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                    </div> -->
+                                   
                                 </div>
                                 <div class="col-lg-6 ms-3">
                                     <div class="product-details-des">

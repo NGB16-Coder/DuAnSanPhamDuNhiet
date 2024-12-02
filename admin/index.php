@@ -13,6 +13,7 @@ require_once './controllers/HomeAdminController.php';
 require_once './controllers/AdminUserController.php';
 require_once './controllers/AdminEvaluationController.php';
 require_once './controllers/AdminCommentController.php';
+require_once './controllers/AdminOrderController.php';
 
 
 // Require toàn bộ file Models
@@ -22,6 +23,7 @@ require_once './models/AdminUser.php';
 require_once './models/AdminEvaluation.php';
 require_once './models/AdminComment.php';
 require_once './models/AdminSize.php';
+require_once './models/AdminOrder.php';
 
 
 // Route
@@ -47,6 +49,11 @@ match ($act) {
     'editCategory' => (new AdminCategoryController())->editCategory(),
     'xoaCategory' => (new AdminCategoryController())->xoaCategory(),
 
+    // router Đơn Hàng
+    'listOrder' => (new AdminOrderController())->listOrder(),
+    'detailOrder' => (new AdminOrderController())->detailOrder(),
+    'formEditOrder' =>(new AdminOrderController())->formEditOrder(),
+    'update-trang-thai' => (new AdminOrderController())->editTrangThai(),
     // router sản phẩm
     'listProduct' => (new AdminProductController())->listProduct(),
     'formAddProduct' => (new AdminProductController())->formAddProduct(),

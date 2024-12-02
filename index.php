@@ -35,6 +35,8 @@ match ($act) {
     'check-dang-ky' => (new HomeController())->dangKy(),
     'dang-xuat' => (new HomeController())->logout(),
     'xoa-ghi-nho' => (new HomeController())->xoaCookie(),
+
+    'lien-he' => (new HomeController())->lienHe(),
     'thanh-toan' => (new HomeController())->thanhToan(),
     'them-vao-gio-hang' => (new CartController())->addToCart(),
     'gio-hang' => (new CartController())->showCart(),
