@@ -38,4 +38,8 @@ match ($act) {
     'thanh-toan' => (new HomeController())->thanhToan(),
     'them-vao-gio-hang' => (new CartController())->addToCart(),
     'gio-hang' => (new CartController())->showCart(),
+
+    // chuc nang binh luan
+    'addBinhLuan' => (new HomeController())->addBinhLuan(),
+    'listCommentByProduct' => (new HomeController())->listCommentByProduct(),
 };
