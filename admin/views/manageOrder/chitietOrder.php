@@ -73,7 +73,7 @@
                   <address>
                     <strong><?= $detailDonHang['ho_ten'] ?></strong><br>
                     Email: <?= $detailDonHang['email'] ?> <br>
-                    Phone: <?= $detailDonHang['sdt'] ?><br>
+                    Phone: <?= $detailDonHang['sdt_nhan'] ?><br>
                   </address>
                 </div>
                 <!-- /.col -->

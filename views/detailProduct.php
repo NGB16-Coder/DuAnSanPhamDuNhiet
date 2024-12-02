@@ -4,6 +4,7 @@
 
 <!-- Mirrored from htmldemo.net/corano/corano/product-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:00 GMT -->
 
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -84,28 +85,32 @@
                                                 alt="product-details" />
                                         </div>
                                     </div>
-                                    <!-- <div class="pro-nav slick-row-10 slick-arrow-style">
+                                    <!-- <!-- <div class="pro-nav slick-row-10 slick-arrow-style">
                                         <div class="pro-nav-thumb">
                                             <img src="assets/img/product/product-details-img1.jpg"
+                                               
                                                 alt="product-details" />
                                         </div>
                                         <div class="pro-nav-thumb">
                                             <img src="assets/img/product/product-details-img2.jpg"
+                                               
                                                 alt="product-details" />
                                         </div>
                                         <div class="pro-nav-thumb">
                                             <img src="assets/img/product/product-details-img3.jpg"
+                                               
                                                 alt="product-details" />
                                         </div>
                                         <div class="pro-nav-thumb">
                                             <img src="assets/img/product/product-details-img4.jpg"
+                                               
                                                 alt="product-details" />
                                         </div>
                                         <div class="pro-nav-thumb">
                                             <img src="assets/img/product/product-details-img5.jpg"
                                                 alt="product-details" />
                                         </div>
-                                    </div> -->
+                                    </div> --> -->
                                 </div>
                                 <div class="col-lg-6 ms-3">
                                     <div class="product-details-des">
@@ -130,52 +135,72 @@
                                         <p class="pro-desc">
                                             <?= $product['mo_ta'] ? $product['mo_ta'] : "Không có mô tả" ?>
                                         </p>
-                                        <form method="POST" action="">
-                                            <div>
-                                                <!-- Hiển thị danh sách size -->
-                                                <div class="pro-size">
-                                                    <h6 class="option-title">Size:</h6>
-                                                    <select name="size_id" onchange="this.form.submit()">
-                                                        <?php foreach ($variants as $variant): ?>
-                                                        <option
-                                                            value="<?= $variant['size_id'] ?>"
-                                                            <?= $variant['size_id'] == $selectedSizeId ? 'selected' : '' ?>>
-                                                            <?= $variant['size_value'] ?>
-                                                        </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-
-                                                <!-- Hiển thị giá theo size được chọn -->
-                                                <div class="price-box">
-                                                    <span class="price-regular"
-                                                        style="font-size: 1.3vw; font-weight:700;color:red">
-                                                        <?= number_format($selectedVariant['gia_sp']) ?>₫
-                                                    </span>
-                                                    <span class="price-old"
-                                                        style="font-size: 1.1vw; text-decoration:line-through;color:gray">
-                                                        <del><?= number_format($selectedVariant['km_sp']) ?>₫</del>
-                                                    </span>
-                                                </div>
-
-                                                <!-- Hiển thị số lượng sản phẩm còn lại -->
-                                                <div class="pro-size">
-                                                    <h6 class="option-title">Còn:
-                                                        <span><b><?= $selectedVariant['so_luong'] ?></b></span>
-                                                        sản phẩm
-                                                    </h6>
-                                                </div>
-
-                                                <!-- Nút thêm vào giỏ hàng -->
+                                        <form method="POST"
+                                            action="<?= BASE_URL . '?act=them-vao-gio-hang' ?>">
+                                            <h6 class="option-title">Size:</h6>
+                                            <div class="row">
+                                                <?php foreach ($variants as $variant): ?>
+                                                <a href="javascript:void(0)" class="btn btn-info ms-2 size-btn"
+                                                    style="width:50px"
+                                                    data-size-id="<?= $variant['size_id'] ?>"
+                                                    data-price="<?= $variant['gia_sp'] ?>"
+                                                    data-stock="<?= $variant['so_luong'] ?>">
+                                                    <?= $variant['size_value'] ?>
+                                                </a>
+                                                <?php endforeach; ?>
                                             </div>
-                                            <div class="quantity-cart-box d-flex align-items-center">
-                                                <h6 class="option-title">Số Lượng:</h6>
-                                                <div class="quantity">
-                                                    <div class="pro-qty"><input type="text" value="1"></div>
-                                                </div>
+
+                                            <input type="hidden" name="spbt_id"
+                                                value="<?= $product['spbt_id'] ?>">
+                                            <input type="hidden" id="selected-size-id" name="size_id"
+                                                value="<?= $selectedVariant['size_id'] ?>">
+                                            <input type="hidden" name="so_luong" value="1">
+
+                                            <div class="price-box">
+                                                <span id="selected-price" class="price-regular"
+                                                    style="font-size: 1.3vw; font-weight:700;color:red">
+                                                    <?= number_format($selectedVariant['gia_sp']) ?>₫
+                                                </span>
+                                                
+                                                <h6 class="option-title mt-3">Còn:
+                                                    <span id="selected-stock"
+                                                        style="font-weight: 700;"><?= $selectedVariant['so_luong'] ?></span>
+                                                    sản phẩm
+                                                </h6>
                                             </div>
-                                            <button type="submit" class="btn btn-cart2">Thêm vào giỏ hàng</button>
-                                        </form>
+                                        </div>
+                                        <div class="pro-size">
+                                            <h6 class="option-title">size :</h6>
+                                            <select class="nice-select">
+                                                <option>S</option>
+                                                <option>M</option>
+                                                <option>L</option>
+                                                <option>XL</option>
+                                            </select>
+                                        </div>
+                                        <div class="color-option">
+                                            <h6 class="option-title">color :</h6>
+                                            <ul class="color-categories">
+                                                <li>
+                                                    <a class="c-lightblue" href="#" title="LightSteelblue"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="c-darktan" href="#" title="Darktan"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="c-grey" href="#" title="Grey"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="c-brown" href="#" title="Brown"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="useful-links">
+                                            <a href="#" data-bs-toggle="tooltip" title="Compare"><i
+                                                    class="pe-7s-refresh-2"></i>compare</a>
+                                            <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
+                                                    class="pe-7s-like"></i>wishlist</a>
+                                        </div>
                                         <div class="like-icon">
                                             <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
                                             <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
@@ -339,31 +364,81 @@
                     <div class="col-12">
                         <div class="product-carousel-4 slick-row-10 slick-arrow-style">
                             <!-- product item start -->
-
-                            <?php
-                                                                $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
-    foreach ($productCategory as $product) {
-        // Kiểm tra nếu sản phẩm đã được hiển thị
-        if (in_array($product['sp_id'], $tempProducts)) {
-            continue; // Bỏ qua nếu sản phẩm đã hiển thị
-        }
-        $tempProducts[] = $product['sp_id'];?>
                             <div class="product-item">
                                 <figure class="product-thumb">
-                                    <a
-                                        href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id']; ?>">
-                                        <img src="<?php echo $product['img_sp']; ?>"
-                                            alt="Ảnh sản phẩm" class="img-fluid">
-                                        <p style="font-size: 1.3vw; font-weight:700;color:red">
-                                            <?php echo number_format($product['km_sp']); ?>₫
-                                            <span style="font-size: 1.1vw; text-decoration:line-through;color:gray">
-                                                <?php echo number_format($product['gia_sp']); ?>₫
-                                            </span>
-                                        </p>
-                                        <p style="color:burlywood; font-size:1.2vw">
-                                            <?php echo $product['ten_sp']; ?>
-                                        </p>
+                                    <a href="product-details.html">
+                                        <img class="pri-img" src="assets/img/product/coc1.png" alt="product">
+                                        <img class="sec-img" src="assets/img/product/coc1.png" alt="product">
                                     </a>
+                                    <div class="product-badge">
+                                        <div class="product-label new">
+                                            <span>new</span>
+                                        </div>
+                                        <div class="product-label discount">
+                                            <span>10%</span>
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                        <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
+                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
+                                    </div>
+                                    <div class="cart-hover">
+                                        <button class="btn btn-cart">add to cart</button>
+                                    </div>
+                                </figure>
+                                <div class="product-caption text-center">
+                                    <div class="product-identity">
+                                        <p class="manufacturer-name"><a href="product-details.html">Gold</a></p>
+                                    </div>
+                                    <ul class="color-categories">
+                                        <li>
+                                            <a class="c-lightblue" href="#" title="LightSteelblue"></a>
+                                        </li>
+                                        <li>
+                                            <a class="c-darktan" href="#" title="Darktan"></a>
+                                        </li>
+                                        <li>
+                                            <a class="c-grey" href="#" title="Grey"></a>
+                                        </li>
+                                        <li>
+                                            <a class="c-brown" href="#" title="Brown"></a>
+                                        </li>
+                                    </ul>
+                                    <h6 class="product-name">
+                                        <a href="product-details.html">Perfect Diamond Jewelry</a>
+                                    </h6>
+                                    <div class="price-box">
+                                        <span class="price-regular">$60.00</span>
+                                        <span class="price-old"><del>$70.00</del></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- product item end -->
+
+                            <!-- product item start -->
+                            <div class="product-item">
+                                <figure class="product-thumb">
+                                    <a href="product-details.html">
+                                        <img class="pri-img" src="assets/img/product/coc1.png" alt="product">
+                                        <img class="sec-img" src="assets/img/product/coc1.png" alt="product">
+                                    </a>
+                                    <div class="product-badge">
+                                        <div class="product-label new">
+                                            <span>sale</span>
+                                        </div>
+                                        <div class="product-label discount">
+                                            <span>new</span>
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                        <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
+                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
+                                    </div>
+                                    <div class="cart-hover">
+                                        <button class="btn btn-cart">add to cart</button>
+                                    </div>
                                 </figure>
                             </div>
                             <?php } ?>
@@ -494,7 +569,23 @@
 
     <!-- JS
 ============================================ -->
+    <script>
+        document.querySelectorAll('.size-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const sizeId = this.getAttribute('data-size-id');
+                const price = this.getAttribute('data-price');
+                const stock = this.getAttribute('data-stock');
 
+                // Cập nhật giá trị vào input hidden
+                document.getElementById('selected-size-id').value = sizeId;
+
+                // Cập nhật giá và số lượng còn lại trên giao diện
+                document.getElementById('selected-price').innerText = new Intl.NumberFormat().format(
+                    price) + '₫';
+                document.getElementById('selected-stock').innerText = stock;
+            });
+        });
+    </script>
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <!-- jQuery JS -->

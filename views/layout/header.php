@@ -99,7 +99,8 @@
                                     </li>
 
                                     <li>
-                                        <a href="#" class="minicart-btn">
+                                        <a href="<?= BASE_URL.'?act=gio-hang' ?>"
+                                            class="minicart-btn">
                                             <i class="pe-7s-shopbag"></i>
                                             <div class="notification">0</div>
                                         </a>

@@ -69,10 +69,18 @@
                     <td><?= $order['ngay_dat'] ?>
                     </td>
                     <td>
-                      <?= $order['trang_thai'] ?>
+                      <?php if($order['trang_thai'] == 1){
+                          echo'<p class="alert alert-info">Chờ xác nhận</p>';
+                      }elseif($order['trang_thai'] == 2){
+                        echo'<p class="alert alert-warning">Đang giao hàng</p>';
+                      }elseif($order['trang_thai'] == 3){
+                        echo'<p class="alert alert-success">Đã giao hàng</p>';
+                      }else{
+                        echo'<p class="alert alert-danger">Đơn bị hủy</p>';
+                      } ?>
                     </td>
                     <td>
-                      <a href=""><button class="btn btn-warning">Đổi trạng thái</button></a>
+                      <a href="<?= BASE_URL_ADMIN.'?act=update-trang-thai&id='.$order['order_id'] ?>"><button class="btn btn-primary">Cập nhật</button></a>
                       <a href="<?= BASE_URL_ADMIN.'?act=detailOrder&id='.$order['order_id'] ?>"><button class="btn btn-info">Chi tiết</button></a>
                     </td>
 

@@ -26,6 +26,15 @@ class AdminOrderController {
     }
 
     public function editTrangThai(){
-        $editTrangThai = $this->modelOrder->editTrangThai();
+        $order_id = $_GET['id'];
+        // var_dump($order_id);die;
+        $editTrangThai = $this->modelOrder->editTrangThai($order_id);
+        if($editTrangThai){
+            header('location: ' . BASE_URL_ADMIN . '?act=listOrder');
+            exit;
+        }else{
+            header('location: ' . BASE_URL_ADMIN . '?act=listOrder');
+            exit;
+        }
     }
 }

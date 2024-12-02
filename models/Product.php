@@ -29,9 +29,10 @@ class Product
     public function getProductById($sp_id)
     {
         try {
-            $sql = "SELECT san_pham.*, danh_muc.ten_dm
+            $sql = "SELECT san_pham.*, danh_muc.ten_dm, sp_bien_the.spbt_id
             FROM san_pham 
             INNER JOIN danh_muc ON san_pham.dm_id = danh_muc.dm_id 
+            INNER JOIN sp_bien_the ON san_pham.sp_id = sp_bien_the.sp_id 
             WHERE san_pham.sp_id = :sp_id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
@@ -40,38 +41,6 @@ class Product
             return $stmt->fetch();
         } catch (Exception $e) {
             echo 'Lỗi getProductById() '.$e->getMessage();
-        }
-    }
-    public function getVariantProduct($sp_id)
-    {
-        try {
-            $sql = "SELECT tb_size.size_value, sp_bien_the.size_id, sp_bien_the.gia_sp, sp_bien_the.km_sp ,sp_bien_the.so_luong, san_pham.sp_id
-            FROM sp_bien_the
-            INNER JOIN tb_size ON sp_bien_the.size_id = tb_size.size_id
-            INNER JOIN san_pham ON sp_bien_the.sp_id = san_pham.sp_id
-            WHERE sp_bien_the.sp_id = :sp_id";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
-                ':sp_id' => $sp_id
-            ]);
-            return $stmt->fetchAll();
-        } catch (Exception $e) {
-            echo 'Lỗi getVariantProduct() '.$e->getMessage();
-        }
-    }
-    public function getVariantBySizeId($sp_id, $size_id) {
-        try {
-            $sql = "SELECT sp_bien_the.gia_sp, sp_bien_the.km_sp, sp_bien_the.so_luong
-            FROM sp_bien_the
-            WHERE sp_bien_the.sp_id = :sp_id AND sp_bien_the.size_id = :size_id";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
-                ':sp_id' => $sp_id,
-                ':size_id' => $size_id
-            ]);
-            return $stmt->fetch();
-        } catch (Exception $e) {
-            echo 'Lỗi getVariantBySizeId() '.$e->getMessage();
         }
     }
     public function getProductCategory($dm_id)

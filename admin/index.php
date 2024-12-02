@@ -53,7 +53,7 @@ match ($act) {
     'listOrder' => (new AdminOrderController())->listOrder(),
     'detailOrder' => (new AdminOrderController())->detailOrder(),
     'formEditOrder' =>(new AdminOrderController())->formEditOrder(),
-    'trang-thai' => (new AdminOrderController())->editTrangThai(),
+    'update-trang-thai' => (new AdminOrderController())->editTrangThai(),
     // router sản phẩm
     'listProduct' => (new AdminProductController())->listProduct(),
     'formAddProduct' => (new AdminProductController())->formAddProduct(),

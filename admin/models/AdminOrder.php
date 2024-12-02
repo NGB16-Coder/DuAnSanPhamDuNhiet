@@ -55,14 +55,26 @@ class AdminOrder
         }
     }
 
-    public function editTrangThai(){
+    public function editTrangThai($order_id){
         try {
-            $sql = "UPDATE `don_hang` SET `trang_thai`";
+            $sql = "SELECT don_hang.trang_thai FROM don_hang WHERE order_id = :order_id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':order_id'=>$order_id
             ]);
-            return $stmt->fetchAll();
+            $checkOrder = $stmt->fetch();
+            // var_dump($checkOrder['trang_thai']);die;
+            if($checkOrder['trang_thai'] <= 4){
+                $sql = "UPDATE don_hang SET trang_thai = :trang_thai + 1  WHERE order_id = :order_id ";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute([
+                    ':order_id'=>$order_id,
+                    ':trang_thai'=> $checkOrder['trang_thai'],
+                ]); 
+                return true;
+            }else{
+                return false;
+            }
         } catch (Exception $e) {
             echo 'Lỗi getProductOrder() '.$e->getMessage();
         }
