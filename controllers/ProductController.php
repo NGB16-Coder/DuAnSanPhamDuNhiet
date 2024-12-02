@@ -17,6 +17,11 @@ class ProductController
         $sp_id = (int)$_GET['id'];
         $size_id = (int)$_GET['size_id'];
         $product = $this->product->getProductById($sp_id);
+
+         // Lấy danh sách bình luận cho sản phẩm
+         $listComment = $this->product->getCommentByProduct($sp_id);
+
+
         $variants = $this->product->getVariantProduct($sp_id);
         // var_dump($product['dm_id']);
         // die;
