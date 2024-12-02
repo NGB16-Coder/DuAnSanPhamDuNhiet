@@ -233,7 +233,7 @@
                                     href="<?php echo BASE_URL.'?act=san-pham-theo-danh-muc&id='.$category['dm_id'] ?>"><?= $category['ten_dm'] ?></a>
                             </li>
                             <?php }; ?>
-                            <li><a href="#">liên hệ</a>
+                            <li><a href="<?= BASE_URL.'?act=lien-he'?>">liên hệ</a>
                             </li>
                             <li><a
                                     href="<?= BASE_URL.'?act=gioi-thieu'?>">Về
