@@ -36,7 +36,7 @@ class HomeController
 
     public function dangNhap()
     {
-
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // lấy email và pass gửi lên form
             $email = $_POST['email'];
@@ -64,7 +64,7 @@ class HomeController
                 exit();
             } else {
                 // Lỗi thì lưu vào session
-                $_SESSION['error'] = $taikhoan ?? null;
+                $_SESSION['error'] = $taikhoan;
 
                 $_SESSION['flash'] = true;
                 header('location:'.BASE_URL . '?act=dang-nhap');
@@ -168,6 +168,12 @@ class HomeController
     public function xoaCookie()
     {
         require_once './views/xoaCookie.php';
+    }
+    public function thanhToan()
+    {
+        $listCategory = $this->category->getAllCategory();
+        require_once './views/thanhToan.php';
+        deleteSessionError();
     }
 
 

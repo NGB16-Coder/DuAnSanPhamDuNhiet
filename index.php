@@ -10,11 +10,13 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 require_once './controllers/HomeController.php';
 require_once './controllers/ProductController.php';
 require_once './controllers/CategoryController.php';
+require_once './controllers/CartController.php';
 
 // Require toàn bộ file Models
 require_once './models/Product.php';
 require_once './models/Category.php';
 require_once './models/Taikhoan.php';
+require_once './models/Cart.php';
 
 // Route
 $act = $_GET['act'] ?? 'trang-chu';
@@ -33,4 +35,7 @@ match ($act) {
     'check-dang-ky' => (new HomeController())->dangKy(),
     'dang-xuat' => (new HomeController())->logout(),
     'xoa-ghi-nho' => (new HomeController())->xoaCookie(),
+    'thanh-toan' => (new HomeController())->thanhToan(),
+    'them-vao-gio-hang' => (new CartController())->addToCart(),
+    'gio-hang' => (new CartController())->showCart(),
 };

@@ -183,7 +183,7 @@
                 <div class="row justify-content-left">
                     <?php
                         $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
-    foreach ($listProduct as $product) {
+        foreach ($listProduct as $product) {
         // Kiểm tra nếu sản phẩm đã được hiển thị
         if (in_array($product['sp_id'], $tempProducts)) {
             continue; // Bỏ qua nếu sản phẩm đã hiển thị
@@ -193,7 +193,7 @@
                     <div class="col-3 mb-4">
                         <div class="product-item text-center">
                             <a
-                                href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id']; ?>">
+                                href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id'].'&size_id='.$product['size_id']; ?>">
                                 <div class="product-thumb">
                                     <img src="<?php echo $product['img_sp']; ?>"
                                         alt="Ảnh sản phẩm" class="img-fluid">

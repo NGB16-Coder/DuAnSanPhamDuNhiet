@@ -29,9 +29,10 @@ class Product
     public function getProductById($sp_id)
     {
         try {
-            $sql = "SELECT san_pham.*, danh_muc.ten_dm
+            $sql = "SELECT san_pham.*, danh_muc.ten_dm, sp_bien_the.spbt_id
             FROM san_pham 
             INNER JOIN danh_muc ON san_pham.dm_id = danh_muc.dm_id 
+            INNER JOIN sp_bien_the ON san_pham.sp_id = sp_bien_the.sp_id 
             WHERE san_pham.sp_id = :sp_id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
@@ -59,9 +60,10 @@ class Product
             echo 'Lỗi getVariantProduct() '.$e->getMessage();
         }
     }
-    public function getVariantBySizeId($sp_id, $size_id) {
+    public function getVariantBySizeId($sp_id, $size_id)
+    {
         try {
-            $sql = "SELECT sp_bien_the.gia_sp, sp_bien_the.km_sp, sp_bien_the.so_luong
+            $sql = "SELECT sp_bien_the.gia_sp, sp_bien_the.km_sp, sp_bien_the.so_luong, sp_bien_the.size_id
             FROM sp_bien_the
             WHERE sp_bien_the.sp_id = :sp_id AND sp_bien_the.size_id = :size_id";
             $stmt = $this->conn->prepare($sql);

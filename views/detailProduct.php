@@ -130,50 +130,40 @@
                                         <p class="pro-desc">
                                             <?= $product['mo_ta'] ? $product['mo_ta'] : "Không có mô tả" ?>
                                         </p>
-                                        <form method="POST" action="">
-                                            <div>
-                                                <!-- Hiển thị danh sách size -->
-                                                <div class="pro-size">
-                                                    <h6 class="option-title">Size:</h6>
-                                                    <select name="size_id" onchange="this.form.submit()">
-                                                        <?php foreach ($variants as $variant): ?>
-                                                        <option
-                                                            value="<?= $variant['size_id'] ?>"
-                                                            <?= $variant['size_id'] == $selectedSizeId ? 'selected' : '' ?>>
-                                                            <?= $variant['size_value'] ?>
-                                                        </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-
-                                                <!-- Hiển thị giá theo size được chọn -->
-                                                <div class="price-box">
-                                                    <span class="price-regular"
-                                                        style="font-size: 1.3vw; font-weight:700;color:red">
-                                                        <?= number_format($selectedVariant['gia_sp']) ?>₫
-                                                    </span>
-                                                    <span class="price-old"
-                                                        style="font-size: 1.1vw; text-decoration:line-through;color:gray">
-                                                        <del><?= number_format($selectedVariant['km_sp']) ?>₫</del>
-                                                    </span>
-                                                </div>
-
-                                                <!-- Hiển thị số lượng sản phẩm còn lại -->
-                                                <div class="pro-size">
-                                                    <h6 class="option-title">Còn:
-                                                        <span><b><?= $selectedVariant['so_luong'] ?></b></span>
-                                                        sản phẩm
-                                                    </h6>
-                                                </div>
-
-                                                <!-- Nút thêm vào giỏ hàng -->
+                                        <form method="POST"
+                                            action="<?= BASE_URL . '?act=them-vao-gio-hang' ?>">
+                                            <h6 class="option-title">Size:</h6>
+                                            <div class="row">
+                                                <?php foreach ($variants as $variant): ?>
+                                                <a href="javascript:void(0)" class="btn btn-info ms-2 size-btn"
+                                                    style="width:50px"
+                                                    data-size-id="<?= $variant['size_id'] ?>"
+                                                    data-price="<?= $variant['gia_sp'] ?>"
+                                                    data-stock="<?= $variant['so_luong'] ?>">
+                                                    <?= $variant['size_value'] ?>
+                                                </a>
+                                                <?php endforeach; ?>
                                             </div>
-                                            <div class="quantity-cart-box d-flex align-items-center">
-                                                <h6 class="option-title">Số Lượng:</h6>
-                                                <div class="quantity">
-                                                    <div class="pro-qty"><input type="text" value="1"></div>
-                                                </div>
+
+                                            <input type="hidden" name="spbt_id"
+                                                value="<?= $product['spbt_id'] ?>">
+                                            <input type="hidden" id="selected-size-id" name="size_id"
+                                                value="<?= $selectedVariant['size_id'] ?>">
+                                            <input type="hidden" name="so_luong" value="1">
+
+                                            <div class="price-box">
+                                                <span id="selected-price" class="price-regular"
+                                                    style="font-size: 1.3vw; font-weight:700;color:red">
+                                                    <?= number_format($selectedVariant['gia_sp']) ?>₫
+                                                </span>
+                                                
+                                                <h6 class="option-title mt-3">Còn:
+                                                    <span id="selected-stock"
+                                                        style="font-weight: 700;"><?= $selectedVariant['so_luong'] ?></span>
+                                                    sản phẩm
+                                                </h6>
                                             </div>
+
                                             <button type="submit" class="btn btn-cart2">Thêm vào giỏ hàng</button>
                                         </form>
                                         <div class="like-icon">
@@ -341,7 +331,7 @@
                             <!-- product item start -->
 
                             <?php
-                                                                $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
+    $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
     foreach ($productCategory as $product) {
         // Kiểm tra nếu sản phẩm đã được hiển thị
         if (in_array($product['sp_id'], $tempProducts)) {
@@ -351,7 +341,7 @@
                             <div class="product-item">
                                 <figure class="product-thumb">
                                     <a
-                                        href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id']; ?>">
+                                        href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id'].'&size_id='.$product['size_id']; ?>">
                                         <img src="<?php echo $product['img_sp']; ?>"
                                             alt="Ảnh sản phẩm" class="img-fluid">
                                         <p style="font-size: 1.3vw; font-weight:700;color:red">
@@ -494,7 +484,23 @@
 
     <!-- JS
 ============================================ -->
+    <script>
+        document.querySelectorAll('.size-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const sizeId = this.getAttribute('data-size-id');
+                const price = this.getAttribute('data-price');
+                const stock = this.getAttribute('data-stock');
 
+                // Cập nhật giá trị vào input hidden
+                document.getElementById('selected-size-id').value = sizeId;
+
+                // Cập nhật giá và số lượng còn lại trên giao diện
+                document.getElementById('selected-price').innerText = new Intl.NumberFormat().format(
+                    price) + '₫';
+                document.getElementById('selected-stock').innerText = stock;
+            });
+        });
+    </script>
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <!-- jQuery JS -->

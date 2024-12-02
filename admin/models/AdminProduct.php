@@ -16,7 +16,8 @@ class AdminProduct
             FROM san_pham 
             INNER JOIN danh_muc ON san_pham.dm_id = danh_muc.dm_id
             INNER JOIN sp_bien_the ON san_pham.sp_id = sp_bien_the.sp_id
-            INNER JOIN tb_size ON tb_size.size_id = sp_bien_the.size_id';
+            INNER JOIN tb_size ON tb_size.size_id = sp_bien_the.size_id
+            ORDER BY san_pham.ngay_tao DESC LIMIT 12';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll();
@@ -131,11 +132,19 @@ class AdminProduct
                 ':sp_id' => $sp_id
             ]);
 
-            $sql = "DELETE FROM san_pham WHERE sp_id=:sp_id";
+            $sql = "SELECT * FROM san_pham WHERE sp_id = :sp_id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':sp_id' => $sp_id
             ]);
+            $checkPrd = $stmt->fetchAll();
+            if ($checkPrd['sp_id']) {
+                $sql = "DELETE FROM san_pham WHERE sp_id=:sp_id";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute([
+                    ':sp_id' => $sp_id
+                ]);
+            }
             return true;
         } catch (Exception $e) {
             echo 'Lỗi deleteProduct() '.$e->getMessage();
