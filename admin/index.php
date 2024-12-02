@@ -51,8 +51,9 @@ match ($act) {
 
     // router Đơn Hàng
     'listOrder' => (new AdminOrderController())->listOrder(),
-    'chi-tiet-Order' => (new AdminOrderController())->chitietOrder(),
-    'editTrangThai' => (new AdminOrderController())->editTrangThai(),
+    'detailOrder' => (new AdminOrderController())->detailOrder(),
+    'formEditOrder' =>(new AdminOrderController())->formEditOrder(),
+    'trang-thai' => (new AdminOrderController())->editTrangThai(),
     // router sản phẩm
     'listProduct' => (new AdminProductController())->listProduct(),
     'formAddProduct' => (new AdminProductController())->formAddProduct(),

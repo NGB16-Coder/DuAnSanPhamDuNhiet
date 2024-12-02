@@ -16,88 +16,137 @@
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1><a
-              href="<?= BASE_URL_ADMIN . '?act=listOrder' ?>">Quản Lí Đơn Hàng </a></h1>
+              href="<?= BASE_URL_ADMIN . '?act=listOrder' ?>">Quản
+              Lý Đơn Hàng</a></h1>
         </div>
+        <div>
       </div>
     </div><!-- /.container-fluid -->
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped" style="text-align:center;">
-                <thead>
-                  <tr>
-                    <th>ID Chi Tiết</th>
-                    <th>Mã Đơn</th>
-                    <th>ID SPBT</th>
-                    <th>Giá Mua</th>
-                    <th>Tổng Số Lượng</th>
-                    <th>Trạng Thái</th>
-                    <th>Ngày Đặt</th>
-                    <th>Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php  foreach($chiTietOrder as $Order) : ?>
-                    <tr>
-                        <td><?= $Order['ctdh_id']?></td>
-                        <td><?= $Order['order_id']?></td>
-                        <td><?= $Order['spbt_id']?></td>
-                        <td><?= $Order['gia_mua']?></td>
-                        <td><?= $Order['so_luong']?></td>
-                        <?php
-                            if ($Order['trang_thai'] == 1) {
-                                $colorAlerts = 'primary';
-                            } elseif ($Order['trang_thai'] >= 2 && $Order['trang_thai'] <= 4) {
-                                $colorAlerts = 'warning'; // Sửa 'waring' thành 'warning'
-                            } elseif ($Order['trang_thai'] == 4) {
-                                $colorAlerts = 'success';
-                            } 
-                            ?>
-                            <td 
-                            <?php foreach($trangThai as $value):?>
-                              <?php endforeach ?>><?=$value['ten_trang_thai']?></td>
-                      </td>
-                        <td><?= $Order['ngay_tao']?></td>
-                        <td>
-                        <a href="<?= BASE_URL_ADMIN.'?act=editTrangThai' ?>">Chuyển trạng thái</a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>ID Chi Tiết</th>
-                    <th>Mã Đơn</th>
-                    <th>ID SPBT</th>
-                    <th>Giá Mua</th>
-                    <th>Tổng Số Lượng</th>
-                    <th>Trạng Thái</th>
-                    <th>Ngày Đặt</th>
-                    <th>Thao tác</th>
-                  </tr>
-                </tfoot>
-              </table>
-
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+              <?php
+                if($detailDonHang['trang_thai'] == 1){
+                  $colorAlert = 'info'; // chờ xác nhận
+                }else if ($detailDonHang['trang_thai'] == 2){
+                  $colorAlert = 'warning'; // đang giao
+                }else if ($detailDonHang['trang_thai'] == 3){
+                  $colorAlert = 'success'; // đã giao
+                }else{
+                  $colorAlert = 'danger'; // đã hủy
+                }
+              ?>
+            <div class="alert alert-<?=$colorAlert?>" role="alert"> 
+            <?php
+                if($detailDonHang['trang_thai'] == 1){
+                  echo'Trạng thái đơn hàng: Chờ xác nhận';
+                }else if ($detailDonHang['trang_thai'] == 2){
+                  echo'Trạng thái đơn hàng: Đang giao';
+                }else if ($detailDonHang['trang_thai'] == 3){
+                  echo'Trạng thái đơn hàng: Đã giao';
+                }else{
+                  echo'Trạng thái đơn hàng: Hủy đơn';
+                }
+              ?>
             </div>
-            <!-- /.card-body -->
 
 
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-  </section>
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h4> Shop sản phẩm giữ nhiệt BAĐ
+                    <small class="float-right">Ngày tạo: <?=$detailDonHang['ngay_tao']?></small>
+                  </h4>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                  Thông tin tài khoản đặt
+                  <address>
+                    <strong><?= $detailDonHang['ho_ten'] ?></strong><br>
+                    Email: <?= $detailDonHang['email'] ?> <br>
+                    Phone: <?= $detailDonHang['sdt'] ?><br>
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  Người nhận
+                  <address>
+                    <strong><?= $detailDonHang['ten_nhan'] ?></strong><br>
+                    Phone: <?= $detailDonHang['sdt_nhan'] ?><br>
+                    Địa chỉ:  <?= $detailDonHang['dia_chi_nhan'] ?>
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  <b>Mã Đơn hàng:</b> DH<?= $detailDonHang['order_id'] ?><br>
+                  <b>Tổng số lượng:</b> <?= $detailDonHang['tong_so_luong'] ?> - Sản phẩm<br>
+                  <b>Tổng tiền:</b> <?= number_format($detailDonHang['tong_tien']) ?>  VNĐ
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- Table row -->
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Mã đơn hàng</th>
+                      <th>Tên sản phẩm</th>
+                      <th>Giá mua</th>
+                      <th>Số lượng</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    //  var_dump($productDonHang);
+                    foreach ($productDonHang as $sanpham){ ?>
+                      <tr>
+                       <td><?= $sanpham['ctdh_id'] ?></td>
+                        <td><?= $sanpham['order_id'] ?></td>
+                        <td><?= $sanpham['ten_sp'] ?></td>
+                        <td><?= $sanpham['gia_mua'] ?> VNĐ</td>
+                        <td><?= $sanpham['so_luong_mua'] ?></td>
+                      </tr>
+                    <?php }; ?>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+                      
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+              <div class="row no-print">
+                <div class="col-12">
+                  <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                    Payment
+                  </button>
+                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <i class="fas fa-download"></i> Generate PDF
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
@@ -116,7 +165,7 @@
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
-      "searching": true,
+      "searching": false,
       "ordering": true,
       "info": true,
       "autoWidth": false,

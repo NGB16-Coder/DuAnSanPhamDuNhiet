@@ -1,8 +1,6 @@
 <?php
-class AdminOrderController
-{
+class AdminOrderController {
     public $modelOrder;
-
 
     public function __construct()
     {
@@ -12,20 +10,22 @@ class AdminOrderController
     {
         $listOrder = $this->modelOrder->getAllOrder();
         require_once "./views/manageOrder/listOrder.php";
+        deleteSessionError(); // xóa session sau khi load trang
     }
 
-    public function chitietOrder(){
-        $order_id = $_GET['id'];
-        $chiTietOrder = $this->modelOrder->detailOrder($order_id);
-        $listOrder = $this->modelOrder->getAllOrder();
-        require_once "./views/manageOrder/chitietOrder.php";
+    public function detailOrder(){
+        $order_id = (int)$_GET['id'];
+        $detailDonHang = $this->modelOrder->getDetailOrder($order_id);
+        $productDonHang = $this->modelOrder->getProductOrder($order_id);
+        // var_dump($productDonHang);die;
+        if($detailDonHang && $productDonHang ){
+            require_once "./views/manageOrder/chitietOrder.php";
+        }else{
+            header('location: ' . BASE_URL_ADMIN . '?act=listOrder');
+        }
     }
 
-    public function editOrder(){
-        $chiTietOrder = $this->modelOrder->detailOrder($order_id);
-        $trangThai = $this->modelOrder->editOrder();
-        header('location:' . BASE_URL_ADMIN . '?act=chi-tiet-Order&id='.$Order['order_id']);
-        exit();
+    public function editTrangThai(){
+        $editTrangThai = $this->modelOrder->editTrangThai();
     }
-
 }

@@ -16,7 +16,8 @@
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1><a
-              href="<?= BASE_URL_ADMIN . '?act=listOrder' ?>">Quản Lí Đơn Hàng </a></h1>
+              href="<?= BASE_URL_ADMIN . '?act=listOrder' ?>">Quản
+              Lý Đơn Hàng</a></h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -27,61 +28,72 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-
-          
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped" style="text-align:center;">
                 <thead>
                   <tr>
-                    <th>Mã Đơn Hàng</th>
-                    <th>TK ID </th>
-                    <th>Địa Chỉ</th>
-                    <th>Tên Nhận</th>
-                    <th>SĐT</th>
-                    <th>Ngày Đặt</th>
-                    <th>Tổng Số Lượng</th>
-                    <th>Trạng Thái</th>
-                    <th>Tổng Tiền</th>
-                    <th>Thao tác</th>
+                    <th>Mã đơn hàng</th>
+                    <th>Tài khoản ID</th>
+                    <th>Tên người nhận</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Tổng số lượng</th>
+                    <th>Tổng tiền</th>
+                    <th>Ngày đặt</th>
+                    <th>Trạng thái</th>
+                    <th>Chức năng</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach($listOrder as $Order): ?>
+                  <?php foreach ($listOrder as $order): ?>
                   <tr>
-                      <td><?= $Order['order_id']?></td>
-                      <td><?= $Order['tk_id']?></td>
-                      <td><?= $Order['dia_chi']?></td>
-                      <td><?= $Order['ten_nhan']?></td>
-                      <td><?= $Order['sdt']?></td>
-                      <td><?= $Order['ngay_dat']?></td>
-                      <td><?= $Order['tong_so_luong']?></td>
-                      <td><?= $Order['trang_thai']?></td>
-                      <td><?= $Order['tong_tien']?></td>
-                      <td>
-                        <a href="<?= BASE_URL_ADMIN . '?act=chi-tiet-Order&id='.$Order['order_id'] ?>"><button >Chi Tiết</button></a>
-                        <a href=""><button>Ẩn</button></a>
-                      </td>
+                    <td>
+                      DH<?= $order['order_id'] ?>
+                    </td>
+                    <td>
+                      <?= $order['tk_id'] ?>
+                    </td>
+                    <td><?= $order['ten_nhan'] ?>
+                    </td>
+                    <td><?= $order['sdt_nhan'] ?></td>
+                    <td><?= $order['dia_chi_nhan'] ?>
+                    </td>
+                    <td>
+                      <?= $order['tong_so_luong'] ?>
+                    </td>
+                    <td>
+                      <?= number_format($order['tong_tien']) ?>
+                    </td>
+                    <td><?= $order['ngay_dat'] ?>
+                    </td>
+                    <td>
+                      <?= $order['trang_thai'] ?>
+                    </td>
+                    <td>
+                      <a href=""><button class="btn btn-warning">Đổi trạng thái</button></a>
+                      <a href="<?= BASE_URL_ADMIN.'?act=detailOrder&id='.$order['order_id'] ?>"><button class="btn btn-info">Chi tiết</button></a>
+                    </td>
+
                   </tr>
-                  <?php endforeach; ?>
+                  <?php endforeach ?>
                 </tbody>
                 <tfoot>
                   <tr>
-                  <th>Mã Đơn Hàng</th>
-                    <th>TK ID </th>
-                    <th>Địa Chỉ</th>
-                    <th>Tên Nhận</th>
-                    <th>SĐT</th>
-                    <th>Ngày Đặt</th>
-                    <th>Tổng Số Lượng</th>
-                    <th>Trạng Thái</th>
-                    <th>Tổng Tiền</th>
-                    <th>Thao tác</th>
+                    <th>Mã đơn hàng</th>
+                    <th>Tài khoản ID</th>
+                    <th>Tên người nhận</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Tổng số lượng</th>
+                    <th>Tổng tiền</th>
+                    <th>Ngày đặt</th>
+                    <th>Trạng thái</th>
+                    <th>Chức năng</th>
                   </tr>
                 </tfoot>
               </table>
-
             </div>
             <!-- /.card-body -->
 
@@ -113,7 +125,7 @@
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
-      "searching": true,
+      "searching": false,
       "ordering": true,
       "info": true,
       "autoWidth": false,
