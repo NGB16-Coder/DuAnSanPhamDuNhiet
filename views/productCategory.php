@@ -145,13 +145,13 @@
                             <!-- product item list wrapper start -->
                             <div class="row justify-content-left">
                                 <?php
-                                        $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
-                                foreach ($productCategory as $product) {
-                                    // Kiểm tra nếu sản phẩm đã được hiển thị
-                                    if (in_array($product['sp_id'], $tempProducts)) {
-                                        continue; // Bỏ qua nếu sản phẩm đã hiển thị
-                                    }
-                                    $tempProducts[] = $product['sp_id'];?>
+                        $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
+    foreach ($productCategory as $product) {
+        // Kiểm tra nếu sản phẩm đã được hiển thị
+        if (in_array($product['sp_id'], $tempProducts)) {
+            continue; // Bỏ qua nếu sản phẩm đã hiển thị
+        }
+        $tempProducts[] = $product['sp_id'];?>
 
                                 <div class="col-3 mb-4">
                                     <div class="product-item text-center">

@@ -3,8 +3,6 @@
 
 
 <!-- Mirrored from htmldemo.net/corano/corano/product-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:00 GMT -->
-
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -85,32 +83,6 @@
                                                 alt="product-details" />
                                         </div>
                                     </div>
-                                    <!-- <!-- <div class="pro-nav slick-row-10 slick-arrow-style">
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img1.jpg"
-                                               
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img2.jpg"
-                                               
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img3.jpg"
-                                               
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img4.jpg"
-                                               
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img5.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                    </div> --> -->
                                 </div>
                                 <div class="col-lg-6 ms-3">
                                     <div class="product-details-des">
@@ -168,39 +140,9 @@
                                                     sản phẩm
                                                 </h6>
                                             </div>
-                                        </div>
-                                        <div class="pro-size">
-                                            <h6 class="option-title">size :</h6>
-                                            <select class="nice-select">
-                                                <option>S</option>
-                                                <option>M</option>
-                                                <option>L</option>
-                                                <option>XL</option>
-                                            </select>
-                                        </div>
-                                        <div class="color-option">
-                                            <h6 class="option-title">color :</h6>
-                                            <ul class="color-categories">
-                                                <li>
-                                                    <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                                </li>
-                                                <li>
-                                                    <a class="c-darktan" href="#" title="Darktan"></a>
-                                                </li>
-                                                <li>
-                                                    <a class="c-grey" href="#" title="Grey"></a>
-                                                </li>
-                                                <li>
-                                                    <a class="c-brown" href="#" title="Brown"></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="useful-links">
-                                            <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                                    class="pe-7s-refresh-2"></i>compare</a>
-                                            <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                                    class="pe-7s-like"></i>wishlist</a>
-                                        </div>
+
+                                            <button type="submit" class="btn btn-cart2">Thêm vào giỏ hàng</button>
+                                        </form>
                                         <div class="like-icon">
                                             <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
                                             <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
@@ -364,81 +306,31 @@
                     <div class="col-12">
                         <div class="product-carousel-4 slick-row-10 slick-arrow-style">
                             <!-- product item start -->
-                            <div class="product-item">
-                                <figure class="product-thumb">
-                                    <a href="product-details.html">
-                                        <img class="pri-img" src="assets/img/product/coc1.png" alt="product">
-                                        <img class="sec-img" src="assets/img/product/coc1.png" alt="product">
-                                    </a>
-                                    <div class="product-badge">
-                                        <div class="product-label new">
-                                            <span>new</span>
-                                        </div>
-                                        <div class="product-label discount">
-                                            <span>10%</span>
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                        <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
-                                    </div>
-                                    <div class="cart-hover">
-                                        <button class="btn btn-cart">add to cart</button>
-                                    </div>
-                                </figure>
-                                <div class="product-caption text-center">
-                                    <div class="product-identity">
-                                        <p class="manufacturer-name"><a href="product-details.html">Gold</a></p>
-                                    </div>
-                                    <ul class="color-categories">
-                                        <li>
-                                            <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-darktan" href="#" title="Darktan"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-grey" href="#" title="Grey"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-brown" href="#" title="Brown"></a>
-                                        </li>
-                                    </ul>
-                                    <h6 class="product-name">
-                                        <a href="product-details.html">Perfect Diamond Jewelry</a>
-                                    </h6>
-                                    <div class="price-box">
-                                        <span class="price-regular">$60.00</span>
-                                        <span class="price-old"><del>$70.00</del></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- product item end -->
 
-                            <!-- product item start -->
+                            <?php
+    $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
+    foreach ($productCategory as $product) {
+        // Kiểm tra nếu sản phẩm đã được hiển thị
+        if (in_array($product['sp_id'], $tempProducts)) {
+            continue; // Bỏ qua nếu sản phẩm đã hiển thị
+        }
+        $tempProducts[] = $product['sp_id'];?>
                             <div class="product-item">
                                 <figure class="product-thumb">
-                                    <a href="product-details.html">
-                                        <img class="pri-img" src="assets/img/product/coc1.png" alt="product">
-                                        <img class="sec-img" src="assets/img/product/coc1.png" alt="product">
+                                    <a
+                                        href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id'].'&size_id='.$product['size_id']; ?>">
+                                        <img src="<?php echo $product['img_sp']; ?>"
+                                            alt="Ảnh sản phẩm" class="img-fluid">
+                                        <p style="font-size: 1.3vw; font-weight:700;color:red">
+                                            <?php echo number_format($product['km_sp']); ?>₫
+                                            <span style="font-size: 1.1vw; text-decoration:line-through;color:gray">
+                                                <?php echo number_format($product['gia_sp']); ?>₫
+                                            </span>
+                                        </p>
+                                        <p style="color:burlywood; font-size:1.2vw">
+                                            <?php echo $product['ten_sp']; ?>
+                                        </p>
                                     </a>
-                                    <div class="product-badge">
-                                        <div class="product-label new">
-                                            <span>sale</span>
-                                        </div>
-                                        <div class="product-label discount">
-                                            <span>new</span>
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                        <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
-                                    </div>
-                                    <div class="cart-hover">
-                                        <button class="btn btn-cart">add to cart</button>
-                                    </div>
                                 </figure>
                             </div>
                             <?php } ?>
