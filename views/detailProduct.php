@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from htmldemo.net/corano/corano/product-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:00 GMT -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -81,8 +82,10 @@
                                         <div class="pro-large-img img-zoom">
                                             <img src="<?= $product['img_sp'] ?>"
                                                 alt="product-details" />
+
                                         </div>
                                     </div>
+                                   
                                 </div>
                                 <div class="col-lg-6 ms-3">
                                     <div class="product-details-des">

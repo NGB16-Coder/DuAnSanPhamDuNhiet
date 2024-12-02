@@ -145,7 +145,7 @@
                             <!-- product item list wrapper start -->
                             <div class="row justify-content-left">
                                 <?php
-                        $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
+                                $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
     foreach ($productCategory as $product) {
         // Kiểm tra nếu sản phẩm đã được hiển thị
         if (in_array($product['sp_id'], $tempProducts)) {
