@@ -34,7 +34,8 @@
     <link rel="stylesheet" href="assets/css/plugins/jqueryui.min.css">
     <!-- main style css -->
     <link rel="stylesheet" href="assets/css/style.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
@@ -70,76 +71,86 @@
                     <div class="col-lg-12 ">
                         <div class="card-body">
                             <?php if (!empty($cartItems)): ?>
-                            <table id="example1" class="table table-bordered table-striped" style="text-align:center;">
-                                <thead>
-                                    <tr>
-                                        <th>Ảnh sản phẩm</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Size</th>
-                                        <th>Giá</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                        <th>Chức năng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                $tongTatCaTien = 0; // Biến lưu tổng tất cả tiền
-                                foreach ($cartItems as $item):
-                                    $thanhTien = $item['km_sp'] * $item['so_luong']; // Tính thành tiền
-                                    $tongTatCaTien += $thanhTien; // Cộng dồn vào tổng tất cả tiền
-                                    ?>
-                                    <tr>
-                                        <td><img style="max-width: 100px;"
-                                                src="<?= $item['img_sp'] ?>"
-                                                alt="Ảnh sản phẩm"></td>
-                                        <td><?= $item['ten_sp'] ?>
-                                        </td>
-                                        <td><?= $item['size_value'] ?>
-                                        </td>
-                                        <td><?= number_format($item['km_sp']) ?>₫
-                                        </td>
-                                        <td><?= $item['so_luong'] ?>
-                                        </td>
-                                        <td><?= number_format($thanhTien) ?>₫
-                                        </td>
-                                        <td>
-                                            <!-- Nút xóa -->
-                                            <form method="POST"
-                                                action="<?= BASE_URL . '?act=xoa-gio-hang' ?>"
-                                                style="display:inline;">
-                                                <input type="hidden" name="spbt_id"
-                                                    value="<?= $item['spbt_id'] ?>">
-                                                <input type="hidden" name="size_id"
-                                                    value="<?= $item['size_value'] ?>">
-                                                <button type="submit" class="btn btn-danger"
-                                                    style="width:4vw; height:2vw">Xóa</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="4"></td>
-                                        <td style="text-align:right; font-weight:bold;">Tổng tất cả tiền:</td>
-                                        <td style="font-weight:bold;">
-                                            <?= number_format($tongTatCaTien) ?>₫
-                                        </td>
-                                        <td><a
-                                                href="<?= BASE_URL.'?act=thanh-toan' ?>"><button
-                                                    class="btn btn-success" style="width:6vw; height:4.5vh">Thanh
-                                                    toán</button></a></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <form method="POST"
+                                action="<?= BASE_URL . '?act=thanh-toan&id='.$tk_id ?>">
+                                <table id="example1" class="table table-bordered table-striped"
+                                    style="text-align:center">
+                                    <thead>
+                                        <tr>
+                                            <th><input style="width:15px;height:15px;" type="checkbox" id="select-all"> Chọn tất cả</th>
+                                            <th>Ảnh sản phẩm</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Size</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Thành tiền</th>
+                                            <th>Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        $tongTatCaTien = 0;
+                                        foreach ($cartItems as $item):
+                                        $thanhTien = $item['km_sp'] * $item['so_luong'];
+                                        $tongTatCaTien += $thanhTien;
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <input style="width:20px;height:20px;" type="checkbox" class="select-product" name="select-product[]" data-price="<?= $item['km_sp'] * $item['so_luong'] ?>"
+                                                    value="<?= $item['id'] ?>">
+                                            </td>
+                                            <td><img style="max-width: 100px;"
+                                                    src="<?= $item['img_sp'] ?>"
+                                                    alt="Ảnh sản phẩm"></td>
+                                            <td>
+                                                <p style="font-size: 1.1vw;">
+                                                    <?= $item['ten_sp'] ?>
+                                                </p>
+                                            </td>
+                                            <td><?= $item['size_value'] ?>
+                                            </td>
+                                            <td>
+                                                <p style="font-size: 1.3vw; font-weight:700;color:red">
+                                                    <?= number_format($item['km_sp']) ?>₫
+                                                </p>
+                                                <p style="font-size: 1.1vw; text-decoration:line-through;color:gray">
+                                                    <?= number_format($item['gia_sp']) ?>₫
+                                                </p>
+                                            </td>
+                                            <td><?= $item['so_luong'] ?>
+                                            </td>
+                                            <td class="thanh-tien"
+                                                style="font-size: 1.1vw; font-weight:400;color:green">
+                                                <?= number_format($thanhTien) ?>₫
+                                            </td>
+                                            <td>
+                                                <a href="<?= BASE_URL . '?act=xoa-gio-hang&id='.$item['id'] ?>"
+                                                    class="btn btn-danger">Xóa</a>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6" style="text-align:right; font-weight:bold;">Tổng tiền các
+                                                sản phẩm đã chọn:</td>
+                                            <td style="font-size: 1.1vw; font-weight:700;color:green"
+                                                id="tongTienDaChon">0₫</td>
+                                            <td>
+                                                <button type="submit" id="thanh-toan-link" class="btn btn-success">Thanh
+                                                    toán</button>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </form>
                             <?php else: ?>
                             <div
-                                style="text-align: center; margin: 20px; font-size: 1.5rem; font-weight: bold; margin-bottom:30vw">
+                                style="text-align: center; margin: 20px; font-size: 1.5rem; font-weight: bold; margin-bottom:20vw">
                                 Giỏ hàng chưa có sản phẩm
                             </div>
                             <?php endif; ?>
-
+                            <p class="d-flex justify-content-end"><a href="<?= BASE_URL . '?act=lich-su-don&id=' . $tk_id ?>" style="text-decoration: none; font-size:1.2vw" class="btn btn-info">Lịch sử đơn hàng</a></p>      
                         </div>
                     </div>
                 </div>
@@ -158,7 +169,74 @@
     <!-- footer area end -->
     <!-- JS
 ============================================ -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const checkboxes = document.querySelectorAll(".select-product"); // Lấy danh sách các checkbox
+            const selectAllCheckbox = document.getElementById("select-all"); // Checkbox "Chọn tất cả"
+            const totalSelectedElement = document.getElementById(
+                "tongTienDaChon"); // Hiển thị tổng tiền đã chọn
+            const thanhToanLink = document.getElementById("thanh-toan-link"); // Link Thanh toán
 
+            // Hàm cập nhật tổng tiền và trạng thái nút
+            function updateTotalSelected() {
+                let total = 0; // Tổng tiền
+                let hasChecked = false; // Kiểm tra checkbox được chọn
+
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        total += parseInt(checkbox.getAttribute("data-price")); // Tính tổng tiền
+                        hasChecked = true; // Có ít nhất 1 sản phẩm được chọn
+                    }
+                });
+
+                // Cập nhật hiển thị tổng tiền
+                totalSelectedElement.textContent = total.toLocaleString() + "₫";
+
+                // Vô hiệu hóa/thay đổi trạng thái nút Thanh toán
+                if (hasChecked) {
+                    thanhToanLink.classList.remove("disabled");
+                    thanhToanLink.style.pointerEvents = "auto"; // Cho phép click
+                } else {
+                    thanhToanLink.classList.add("disabled");
+                    thanhToanLink.style.pointerEvents = "none"; // Ngăn không cho click
+                }
+            }
+
+            // Xử lý checkbox "Chọn tất cả"
+            selectAllCheckbox.addEventListener("change", function() {
+                const isChecked = this.checked;
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+                updateTotalSelected(); // Cập nhật tổng tiền và trạng thái nút
+            });
+
+            // Xử lý từng checkbox sản phẩm
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", function() {
+                    if (!this.checked) {
+                        selectAllCheckbox.checked = false; // Bỏ chọn "Chọn tất cả"
+                    }
+                    if (Array.from(checkboxes).every(cb => cb.checked)) {
+                        selectAllCheckbox.checked =
+                            true; // Chọn "Chọn tất cả" nếu tất cả được chọn
+                    }
+                    updateTotalSelected();
+                });
+            });
+
+            // Ngăn liên kết "Thanh toán" hoạt động nếu không có sản phẩm được chọn
+            thanhToanLink.addEventListener("click", function(event) {
+                if (thanhToanLink.classList.contains("disabled")) {
+                    event.preventDefault(); // Ngăn chặn hành động click
+                    alert("Vui lòng chọn ít nhất một sản phẩm để thanh toán!");
+                }
+            });
+
+            // Cập nhật trạng thái ban đầu
+            updateTotalSelected();
+        });
+    </script>
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <!-- jQuery JS -->

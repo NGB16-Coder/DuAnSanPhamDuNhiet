@@ -23,8 +23,8 @@
                                 <address class="contact-block">
                                     <ul>
                                         <li><i class="pe-7s-home"></i> Trịnh Văn Bô</li>
-                                        <li><i class="pe-7s-mail"></i> <a href="mailto:demo@plazathemes.com">giabao16032005@gmail.com </a></li>
-                                        <li><i class="pe-7s-call"></i> <a href="tel:(012)800456789987">(84+) 123 234 456</a></li>
+                                        <li><i class="pe-7s-mail"></i> <a style="text-decoration:none" href="mailto:demo@plazathemes.com">giabao16032005@gmail.com </a></li>
+                                        <li><i class="pe-7s-call"></i> <a style="text-decoration:none" href="tel:(012)800456789987">(84+) 123 234 456</a></li>
                                     </ul>
                                 </address>
                             </div>
@@ -35,12 +35,12 @@
                             <h6 class="widget-title">Information</h6>
                             <div class="widget-body">
                                 <ul class="info-list">
-                                    <li><a href="#">about us</a></li>
-                                    <li><a href="#">Delivery Information</a></li>
-                                    <li><a href="#">privet policy</a></li>
-                                    <li><a href="#">Terms & Conditions</a></li>
-                                    <li><a href="#">contact us</a></li>
-                                    <li><a href="#">site map</a></li>
+                                    <li><a style="text-decoration:none" href="#">about us</a></li>
+                                    <li><a style="text-decoration:none" href="#">Delivery Information</a></li>
+                                    <li><a style="text-decoration:none" href="#">privet policy</a></li>
+                                    <li><a style="text-decoration:none" href="#">Terms & Conditions</a></li>
+                                    <li><a style="text-decoration:none" href="#">contact us</a></li>
+                                    <li><a style="text-decoration:none" href="#">site map</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -193,7 +193,7 @@
                     <div class="col-3 mb-4">
                         <div class="product-item text-center">
                             <a
-                                href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id'].'&size_id='.$product['size_id']; ?>">
+                                href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['spbt_id'].'&size_id='.$product['size_id']; ?>">
                                 <div class="product-thumb">
                                     <img src="<?php echo $product['img_sp']; ?>"
                                         alt="Ảnh sản phẩm" class="img-fluid">

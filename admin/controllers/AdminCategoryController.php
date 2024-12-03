@@ -112,7 +112,7 @@ class AdminCategoryController
             header('location: '.BASE_URL_ADMIN.'?act=listCategory');
             exit();
         } else {
-            die;
+            header('location: '.BASE_URL_ADMIN.'?act=listCategory');
         }
 
     }

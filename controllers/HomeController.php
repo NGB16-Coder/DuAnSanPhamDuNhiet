@@ -6,12 +6,15 @@ class HomeController
     public $product;
     public $category;
     public $taikhoan;
+    private $cartModel;
 
     public function __construct()
     {
         $this->product = new Product();
         $this->category = new Category();
         $this->taikhoan = new taikhoan();
+        $this->cartModel = new CartModel();
+
     }
     public function trangchu()
     {
@@ -69,9 +72,9 @@ class HomeController
                 $_SESSION['flash'] = true;
                 header('location:'.BASE_URL . '?act=dang-nhap');
                 exit();
-                deleteSessionError();
             }
         }
+        deleteSessionError();
     }
 
     public function formDangKy()
@@ -177,6 +180,17 @@ class HomeController
     public function thanhToan()
     {
         $listCategory = $this->category->getAllCategory();
+        $tk_id = $_GET['id'];
+        $TKById = $this->taikhoan->getTKById($tk_id);
+        $cartItems = $this->cartModel->getCartItems($tk_id);
+        $selectedItems = [];
+        foreach ($cartItems as $item) {
+            if (isset($_POST['select-product']) && in_array($item['id'], $_POST['select-product'])) {
+                $selectedItems[] = $item;
+            }
+        }
+        // var_dump($selectedItems);die;
+        // var_dump($TKById);die;
         require_once './views/thanhToan.php';
         deleteSessionError();
     }

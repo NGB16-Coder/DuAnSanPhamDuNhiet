@@ -55,10 +55,10 @@
                     <td>
                       <?= $order['tk_id'] ?>
                     </td>
-                    <td><?= $order['ten_nhan'] ?>
+                    <td><?= $order['ten_nhan'] ? $order['ten_nhan'] :$order['ho_ten'] ?>
                     </td>
-                    <td><?= $order['sdt_nhan'] ?></td>
-                    <td><?= $order['dia_chi_nhan'] ?>
+                    <td><?= $order['sdt_nhan'] ? $order['sdt_nhan'] :$order['sdt']  ?></td>
+                    <td><?= $order['dia_chi_nhan'] ? $order['dia_chi_nhan'] :$order['dia_chi']  ?>
                     </td>
                     <td>
                       <?= $order['tong_so_luong'] ?>
@@ -81,7 +81,7 @@
                     </td>
                     <td>
                       <a href="<?= BASE_URL_ADMIN.'?act=update-trang-thai&id='.$order['order_id'] ?>"><button class="btn btn-primary">Cập nhật</button></a>
-                      <a href="<?= BASE_URL_ADMIN.'?act=detailOrder&id='.$order['order_id'] ?>"><button class="btn btn-info">Chi tiết</button></a>
+                      <a href="<?= BASE_URL_ADMIN.'?act=detailOrder&id='.$order['order_id'] ?>"><button class="btn btn-info mt-2">Chi tiết</button></a>
                     </td>
 
                   </tr>

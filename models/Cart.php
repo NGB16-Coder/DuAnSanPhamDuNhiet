@@ -11,42 +11,34 @@ class CartModel
     public function addToCart($tk_id, $spbt_id, $size_id, $so_luong)
     {
         try {
+
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng hay chưa
-            $sql = "SELECT * FROM gio_hang WHERE tk_id = :tk_id AND spbt_id = :spbt_id AND size_id = :size_id";
+            $sql = "SELECT * FROM gio_hang WHERE tk_id = :tk_id AND spbt_id = :spbt_id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':tk_id' => $tk_id,
-                ':spbt_id' => $spbt_id,
-                ':size_id' => $size_id,
+                ':spbt_id' => $spbt_id
             ]);
             $existingCartItem = $stmt->fetch();
 
-            // var_dump($existingCartItem);die;
-            if ($existingCartItem['spbt_id'] == $spbt_id) {
-                if ($existingCartItem['size_id'] == $size_id) {
-                    // var_dump($existingCartItem);var_dump($existingCartItem['size_id']); die;
-                    // Nếu đã tồn tại size rồi thì tăng số lượng
-                    $sql = "UPDATE gio_hang SET so_luong = so_luong + :so_luong WHERE id = :id AND size_id= :size_id";
-                    $stmt = $this->conn->prepare($sql);
-                    $stmt->execute([
-                        ':so_luong' => $so_luong,
-                        ':size_id' => $size_id,
-                        ':id' => $existingCartItem['id']
-                    ]);
-                } else {
-                    // die;
-                    // Nếu chưa tồn tại, thêm mới size
-                    $sql = "INSERT INTO gio_hang (spbt_id, size_id, tk_id, so_luong) VALUES (:spbt_id, :size_id, :tk_id, :so_luong)";
-                    $stmt = $this->conn->prepare($sql);
-                    $stmt->execute([
-                        ':spbt_id' => $spbt_id,
-                        ':size_id' => $size_id,
-                        ':tk_id' => $tk_id,
-                        ':so_luong' => $so_luong
-                    ]);
-                }
+            // var_dump($existingCartItem['id']);die;
+            if ($existingCartItem) {
+                $sql = "UPDATE gio_hang SET so_luong = so_luong + :so_luong WHERE id = :id";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute([
+                    ':so_luong' => $so_luong,
+                    ':id' => $existingCartItem['id']
+                ]);
+                // var_dump($existingCartItem['id']);
+                // die;
+                return true;
             } else {
                 // Nếu chưa tồn tại, thêm mới
+                // var_dump($tk_id);
+                // var_dump($spbt_id);
+                // var_dump($size_id);
+                // var_dump($so_luong);
+                // die;
                 $sql = "INSERT INTO gio_hang (spbt_id, size_id, tk_id, so_luong) VALUES (:spbt_id, :size_id, :tk_id, :so_luong)";
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute([
@@ -55,7 +47,9 @@ class CartModel
                     ':tk_id' => $tk_id,
                     ':so_luong' => $so_luong
                 ]);
+                return true;
             }
+
             return true;
         } catch (Exception $e) {
             echo 'Lỗi addToCart(): ' . $e->getMessage();
@@ -66,11 +60,11 @@ class CartModel
     public function getCartItems($tk_id)
     {
         try {
-            $sql = "SELECT gio_hang.*,san_pham.img_sp, san_pham.ten_sp, sp_bien_the.gia_sp, sp_bien_the.km_sp, tb_size.size_value
-                    FROM gio_hang
-                    INNER JOIN sp_bien_the ON gio_hang.spbt_id = sp_bien_the.spbt_id
-                    INNER JOIN san_pham ON san_pham.sp_id = sp_bien_the.spbt_id
-                    INNER JOIN tb_size ON gio_hang.size_id = tb_size.size_id
+            $sql = "SELECT gio_hang.*, san_pham.ten_sp, san_pham.img_sp, sp_bien_the.gia_sp, sp_bien_the.km_sp, tb_size.size_value
+                    FROM `gio_hang` 
+                    INNER JOIN sp_bien_the ON sp_bien_the.spbt_id = gio_hang.spbt_id
+                    INNER JOIN san_pham ON san_pham.sp_id = sp_bien_the.sp_id
+                    INNER JOIN tb_size ON tb_size.size_id = gio_hang.size_id
                     WHERE tk_id = :tk_id
                     ORDER BY san_pham.ten_sp";
 
@@ -81,6 +75,36 @@ class CartModel
             return $stmt->fetchAll();
         } catch (Exception $e) {
             echo 'Lỗi getCartItems(): ' . $e->getMessage();
+        }
+    }
+
+    public function getCartById($id)
+    {
+        try {
+            $sql = "SELECT * FROM gio_hang WHERE id = :id ";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':id' => $id
+            ]);
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo 'Lỗi getCartById(): ' . $e->getMessage();
+        }
+    }
+
+    public function deleteCart($id)
+    {
+        try {
+            $sql = "DELETE FROM gio_hang WHERE id = :id";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':id' => $id
+            ]);
+            return true;
+        } catch (Exception $e) {
+            echo 'Lỗi deleteCart(): ' . $e->getMessage();
         }
     }
 

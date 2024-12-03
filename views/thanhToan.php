@@ -68,276 +68,139 @@
         <!-- checkout main wrapper start -->
         <div class="checkout-page-wrapper section-padding">
             <div class="container">
-                <div class="row">
-                    <!-- Checkout Billing Details -->
-                    <div class="col-lg-6">
-                        <div class="checkout-billing-details-wrap">
-                            <h5 class="checkout-title">Thông tin thanh toán</h5>
-                            <div class="billing-form-wrap">
-                                <form
-                                    action="<?= BASE_URL.'?act=check-dang-ky' ?>"
-                                    method="post">
+                <form action="<?= BASE_URL . '?act=xac-nhan-don&id='.$tk_id ?>" method="post">
+                    <div class="row">
+                        <!-- Checkout Billing Details -->
+                        <div class="col-lg-6">
+                            <div class="checkout-billing-details-wrap">
+                                <h5 class="checkout-title">Thông tin thanh toán</h5>
+                                <div class="billing-form-wrap">
                                     <div class="single-input-item">
-                                        <input type="text" placeholder="Tên đăng nhập" name="ho_ten" value="<?php if (isset($_SESSION['ho_ten'])) {
-                                            echo $_SESSION['ho_ten'];
-                                        } ?>">
-                                        <?php if (isset($_SESSION['error']['ho_ten'])) { ?>
-                                        <p class="text-danger">
-                                            <?= $_SESSION['error']['ho_ten'] ?>
-                                        </p>
-                                        <?php } ?>
+                                        <label for="ho_ten">Họ và tên</label>
+                                        <input type="text" placeholder="Tên đăng nhập" name="ho_ten"
+                                            value="<?= $TKById['ho_ten'] ?>"
+                                            readonly>
                                     </div>
                                     <div class="single-input-item">
-                                        <input type="email" placeholder="email@gmail.com" name="email" value="<?php if (isset($_SESSION['email'])) {
-                                            echo $_SESSION['email'];
-                                        } ?>">
-                                        <?php if (isset($_SESSION['error']['email'])) { ?>
-                                        <p class="text-danger">
-                                            <?= $_SESSION['error']['email'] ?>
-                                        </p>
-                                        <?php } ?>
+                                        <label for="email">Email</label>
+                                        <input type="email" placeholder="email@gmail.com" name="email"
+                                            value="<?= $TKById['email'] ?>"
+                                            readonly>
+
                                     </div>
                                     <div class="single-input-item">
-                                        <input type="text" placeholder="Số điện thoại" name="sdt" value="<?php if (isset($_SESSION['sdt'])) {
-                                            echo $_SESSION['sdt'];
-                                        } ?>">
-                                        <?php if (isset($_SESSION['error']['sdt'])) { ?>
-                                        <p class="text-danger">
-                                            <?= $_SESSION['error']['sdt'] ?>
-                                        </p>
-                                        <?php } ?>
+                                        <label for="sdt">Số điện thoại</label>
+                                        <input type="text" placeholder="Số điện thoại" name="sdt"
+                                            value="<?= $TKById['sdt'] ?>"
+                                            readonly>
                                     </div>
                                     <div class="single-input-item">
-                                        <input type="text" placeholder="Địa chỉ nơi trốn" name="dia_chi" value="<?php if (isset($_SESSION['dia_chi'])) {
-                                            echo $_SESSION['dia_chi'];
-                                        } ?>">
-                                        <?php if (isset($_SESSION['error']['dia_chi'])) { ?>
-                                        <p class="text-danger">
-                                            <?= $_SESSION['error']['dia_chi'] ?>
-                                        </p>
-                                        <?php } ?>
+                                        <label for="dia_chi">Địa chỉ nơi trốn</label>
+                                        <input type="text" placeholder="Địa chỉ nơi trốn" name="dia_chi"
+                                            value="<?= $TKById['dia_chi'] ?>"
+                                            readonly>
                                     </div>
+
+
                                     <div class="checkout-box-wrap">
                                         <div class="single-input-item">
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="create_pwd">
-                                                <label class="custom-control-label" for="create_pwd">Tạo tài
-                                                    khoản?</label>
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="ship_to_different">
+                                                <label class="custom-control-label" for="ship_to_different">Gửi đến
+                                                    địa chỉ khác?</label>
                                             </div>
                                         </div>
-                                        <div class="account-create single-form-row">
-                                            <p>Tạo một tài khoản bằng cách nhập thông tin bên dưới. Nếu bạn là khách
-                                                hàng quay lại, vui lòng đăng nhập ở đầu trang.</p>
-
-                                            <div class="flex mb">
-                                                <div class="col-lg-12">
-                                                    <div class="single-input-item">
-                                                        <input type="password" placeholder="Mật khẩu" name="mat_khau"
-                                                            value="<?php if (isset($_SESSION['mat_khau'])) {
-                                                                echo $_SESSION['mat_khau'];
-                                                            } ?>">
-                                                        <?php if (isset($_SESSION['error']['mat_khau'])) { ?>
-                                                        <p class="text-danger">
-                                                            <?= $_SESSION['error']['mat_khau'] ?>
-                                                        </p>
-                                                        <?php } ?>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="single-input-item">
-                                                        <input type="password" placeholder="Nhập lại mật khẩu"
-                                                            name="remat_khau" value="<?php if (isset($_SESSION['remat_khau'])) {
-                                                                echo $_SESSION['remat_khau'];
-                                                            } ?>">
-                                                        <?php if (isset($_SESSION['error']['remat_khau'])) { ?>
-                                                        <p class="text-danger">
-                                                            <?= $_SESSION['error']['remat_khau'] ?>
-                                                        </p>
-                                                        <?php } ?>
-                                                        <?php if (isset($_SESSION['error']['checkmat_khau'])) { ?>
-                                                        <p class="text-danger">
-                                                            <?= $_SESSION['error']['checkmat_khau'] ?>
-                                                        </p>
-                                                        <?php } ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <form action="#">
-                                        <!-- <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="ship-to-different single-form-row">
                                             <div class="single-input-item">
-                                                <label for="f_name" class="required">Họ và tên</label>
-                                                <input type="text" id="f_name" placeholder="Họ và tên" required />
+                                                <input type="text" placeholder="Tên người nhận" name="ten_nhan" value="">
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-input-item">
-                                        <label for="email" class="required">Email</label>
-                                        <input type="email" id="email" placeholder="Email" required />
-                                    </div>
-                                    <div class="single-input-item">
-                                        <label for="phone">Số điện thoại</label>
-                                        <input type="text" id="phone" placeholder="Số điện thoại" />
-                                    </div> -->
-
-
-
-                                        <div class="checkout-box-wrap">
                                             <div class="single-input-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="ship_to_different">
-                                                    <label class="custom-control-label" for="ship_to_different">Gửi đến
-                                                        địa chỉ khác?</label>
-                                                </div>
+                                                <input type="text" placeholder="Số điện thoại người nhận" name="sdt_nhan" value="">
                                             </div>
-                                            <div class="ship-to-different single-form-row">
-                                                <form
-                                                    action="<?= BASE_URL.'?act=check-dang-ky' ?>"
-                                                    method="post">
-                                                    <div class="single-input-item">
-                                                        <input type="text" placeholder="Tên đăng nhập" name="ho_ten"
-                                                            value="<?php if (isset($_SESSION['ho_ten'])) {
-                                                                echo $_SESSION['ho_ten'];
-                                                            } ?>">
-                                                        <?php if (isset($_SESSION['error']['ho_ten'])) { ?>
-                                                        <p class="text-danger">
-                                                            <?= $_SESSION['error']['ho_ten'] ?>
-                                                        </p>
-                                                        <?php } ?>
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <input type="email" placeholder="email@gmail.com" name="email"
-                                                            value="<?php if (isset($_SESSION['email'])) {
-                                                                echo $_SESSION['email'];
-                                                            } ?>">
-                                                        <?php if (isset($_SESSION['error']['email'])) { ?>
-                                                        <p class="text-danger">
-                                                            <?= $_SESSION['error']['email'] ?>
-                                                        </p>
-                                                        <?php } ?>
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <input type="text" placeholder="Số điện thoại" name="sdt" value="<?php if (isset($_SESSION['sdt'])) {
-                                                            echo $_SESSION['sdt'];
-                                                        } ?>">
-                                                        <?php if (isset($_SESSION['error']['sdt'])) { ?>
-                                                        <p class="text-danger">
-                                                            <?= $_SESSION['error']['sdt'] ?>
-                                                        </p>
-                                                        <?php } ?>
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <input type="text" placeholder="Địa chỉ nơi trốn" name="dia_chi"
-                                                            value="<?php if (isset($_SESSION['dia_chi'])) {
-                                                                echo $_SESSION['dia_chi'];
-                                                            } ?>">
-                                                        <?php if (isset($_SESSION['error']['dia_chi'])) { ?>
-                                                        <p class="text-danger">
-                                                            <?= $_SESSION['error']['dia_chi'] ?>
-                                                        </p>
-                                                        <?php } ?>
-                                                    </div>
+                                            <div class="single-input-item">
+                                                <input type="text" placeholder="Địa chỉ người nhận" name="dia_chi_nhan" value="">
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Order Summary Details -->
-                    <div class="col-lg-6">
-                        <div class="order-summary-details">
-                            <h5 class="checkout-title">Tóm tắt đơn hàng của bạn</h5>
-                            <div class="order-summary-content">
-                                <!-- Order Summary Table -->
-                                <div class="order-summary-table table-responsive text-center">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Các sản phẩm</th>
-                                                <th>Tổng số tiền</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><a href="product-details.html">Suscipit Vestibulum <strong> ×
-                                                            1</strong></a>
-                                                </td>
-                                                <td>$165.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="product-details.html">Ami Vestibulum suscipit <strong> ×
-                                                            4</strong></a>
-                                                </td>
-                                                <td>$165.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="product-details.html">Vestibulum suscipit <strong> ×
-                                                            2</strong></a>
-                                                </td>
-                                                <td>$165.00</td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td>Sub Total</td>
-                                                <td><strong>$400</strong></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Shipping</td>
-                                                <td class="d-flex justify-content-center">
-                                                    <ul class="shipping-type">
-                                                        <li>
-                                                            <div class="custom-control custom-radio">
-                                                                <input type="radio" id="flatrate" name="shipping"
-                                                                    class="custom-control-input" checked />
-                                                                <label class="custom-control-label" for="flatrate">Flat
-                                                                    Rate: $70.00</label>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="custom-control custom-radio">
-                                                                <input type="radio" id="freeshipping" name="shipping"
-                                                                    class="custom-control-input" />
-                                                                <label class="custom-control-label"
-                                                                    for="freeshipping">Free
-                                                                    Shipping</label>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tổng tiền</td>
-                                                <td><strong>???</strong></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <!-- Order Payment Method -->
-                                <div class="order-payment-method">
-                                    <div class="single-payment-method show">
-                                        <div class="payment-method-name">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="cashon" name="paymentmethod" value="cash"
-                                                    class="custom-control-input" checked />
-                                                <label class="custom-control-label" for="cashon">Thanh toán khi nhận
-                                                    hàng</label>
+                        <!-- Order Summary Details -->
+                        <div class="col-lg-6">
+                            <div class="order-summary-details">
+                                <h5 class="checkout-title">Tóm tắt đơn hàng của bạn</h5>
+                                <div class="order-summary-content">
+                                    <!-- Order Summary Table -->
+                                    <div class="order-summary-table table-responsive text-center">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th><b>Tên sản phẩm</b></th>
+                                                    <th><b>Số lượng</b></th>
+                                                    <th><b>Size</b></th>
+                                                    <th><b>Giá</b></th>
+                                                    <th><b>Tổng</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                        $tongTien = 0;
+                            foreach ($selectedItems as $item):
+                                $thanhTien = $item['km_sp'] * $item['so_luong'];
+                                $tongTien += $thanhTien;
+                                ?>
+                                                <tr>
+                                                    <td><?= $item['ten_sp'] ?>
+                                                    </td>
+                                                    <td><?= $item['so_luong'] ?>
+                                                    </td>
+                                                    <td><?= $item['size_value'] ?>
+                                                    </td>
+                                                    <td><?= number_format($item['km_sp']) ?>₫
+                                                    </td>
+                                                    <td><?= number_format($thanhTien) ?>₫
+                                                    </td>
+                                                    <input type="hidden" name="select-product[]" value="<?= $item['id'] ?>">
+                                    <input type="hidden" name="product-quantity[<?= $item['id'] ?>]" value="<?= $item['so_luong'] ?>">
+                                    <input type="hidden" name="product-price[<?= $item['id'] ?>]" value="<?= $item['km_sp'] ?>">
+                                                </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="4" style="text-align:right; font-size: 1.2vw;"><b>Tổng
+                                                            tiền:</b>
+                                                    </td>
+                                                    <td><strong style="font-size: 1.2vw; font-weight:700;color:green"><?= number_format($tongTien) ?>₫</strong>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <input type="hidden" name="total_amount" value="<?= $tongTien ?>">
+                                    <!-- Order Payment Method -->
+                                    <div class="order-payment-method">
+                                        <div class="single-payment-method show">
+                                            <div class="payment-method-name">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" id="cashon" name="paymentmethod" value="cash"
+                                                        class="custom-control-input" checked />
+                                                    <label class="custom-control-label" for="cashon">Thanh toán khi nhận
+                                                        hàng</label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="summary-footer-area">
-                                        <button type="submit" class="btn btn-sqr">Đặt hàng</button>
+                                        <div class="summary-footer-area">
+                                            <button type="submit" class="btn btn-sqr">Đặt hàng</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <!-- checkout main wrapper end -->
