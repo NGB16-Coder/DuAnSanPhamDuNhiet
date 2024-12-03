@@ -17,7 +17,8 @@ class Product
             FROM san_pham 
             INNER JOIN danh_muc ON san_pham.dm_id = danh_muc.dm_id
             INNER JOIN sp_bien_the ON san_pham.sp_id = sp_bien_the.sp_id
-            INNER JOIN tb_size ON tb_size.size_id = sp_bien_the.size_id';
+            INNER JOIN tb_size ON tb_size.size_id = sp_bien_the.size_id
+            ORDER BY sp_bien_the.ngay_tao';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll();
@@ -50,7 +51,9 @@ class Product
             FROM sp_bien_the
             INNER JOIN tb_size ON sp_bien_the.size_id = tb_size.size_id
             INNER JOIN san_pham ON sp_bien_the.sp_id = san_pham.sp_id
-            WHERE sp_bien_the.sp_id = :spbt_id";
+            WHERE sp_bien_the.sp_id = :spbt_id
+            ORDER BY sp_bien_the.size_id
+            ";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':spbt_id' => $spbt_id

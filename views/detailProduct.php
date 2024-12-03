@@ -126,7 +126,6 @@
                                                 </button>
                                                 <?php endforeach; ?>
                                             </div>
-
                                             <input type="hidden" id="selected-spbt-id" name="spbt_id"
                                                 value="<?= $selectedVariant['spbt_id'] ?>">
                                             <input type="hidden" id="selected-size-id" name="size_id"
