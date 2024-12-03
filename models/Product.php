@@ -17,7 +17,8 @@ class Product
             FROM san_pham 
             INNER JOIN danh_muc ON san_pham.dm_id = danh_muc.dm_id
             INNER JOIN sp_bien_the ON san_pham.sp_id = sp_bien_the.sp_id
-            INNER JOIN tb_size ON tb_size.size_id = sp_bien_the.size_id';
+            INNER JOIN tb_size ON tb_size.size_id = sp_bien_the.size_id
+            ORDER BY sp_bien_the.ngay_tao';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll();
@@ -50,7 +51,9 @@ class Product
             FROM sp_bien_the
             INNER JOIN tb_size ON sp_bien_the.size_id = tb_size.size_id
             INNER JOIN san_pham ON sp_bien_the.sp_id = san_pham.sp_id
-            WHERE sp_bien_the.sp_id = :spbt_id";
+            WHERE sp_bien_the.sp_id = :spbt_id
+            ORDER BY sp_bien_the.size_id
+            ";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':spbt_id' => $spbt_id
@@ -97,16 +100,17 @@ class Product
     }
 
 
-    
+
 
     // Thêm bình luận
-    public function addBinhLuan($tk_id, $sp_id, $noi_dung) {
+    public function addBinhLuan($tk_id, $spbt_id, $noi_dung)
+    {
         try {
-            $sql = 'INSERT INTO binh_luan (tk_id, sp_id, noi_dung, ngay_tao, an_hien) 
-                    VALUES (:tk_id, :sp_id, :noi_dung, NOW(), 1)';
+            $sql = 'INSERT INTO binh_luan (tk_id, spbt_id, noi_dung) 
+                    VALUES (:tk_id, :spbt_id, :noi_dung)';
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':tk_id', $tk_id, PDO::PARAM_INT);
-            $stmt->bindParam(':sp_id', $sp_id, PDO::PARAM_INT);
+            $stmt->bindParam(':spbt_id', $spbt_id, PDO::PARAM_INT);
             $stmt->bindParam(':noi_dung', $noi_dung, PDO::PARAM_STR);
             $stmt->execute();
         } catch (Exception $e) {
@@ -115,15 +119,16 @@ class Product
     }
 
     // Lấy bình luận theo sản phẩm
-    public function getCommentByProduct($sp_id) {
+    public function getCommentByProduct($spbt_id)
+    {
         try {
             $sql = 'SELECT binh_luan.bl_id, binh_luan.noi_dung, binh_luan.ngay_tao, 
                            taikhoan.ho_ten 
                     FROM binh_luan 
                     INNER JOIN taikhoan ON binh_luan.tk_id = taikhoan.tk_id
-                    WHERE binh_luan.sp_id = :sp_id AND binh_luan.an_hien = 1';
+                    WHERE binh_luan.spbt_id = :spbt_id AND binh_luan.an_hien = 1';
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':sp_id', $sp_id, PDO::PARAM_INT);
+            $stmt->bindParam(':spbt_id', $spbt_id, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (Exception $e) {

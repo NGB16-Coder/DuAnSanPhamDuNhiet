@@ -124,16 +124,8 @@
                                                     data-spbt-id="<?= $variant['spbt_id'] ?>">
                                                     <?= $variant['size_value'] ?>
                                                 </button>
-                                                    <a href="javascript:void(0)" class="btn btn-info ms-2 size-btn"
-                                                        style="width:50px"
-                                                        data-size-id="<?= $variant['size_id'] ?>"
-                                                        data-price="<?= $variant['gia_sp'] ?>"
-                                                        data-stock="<?= $variant['so_luong'] ?>">
-                                                        <?= $variant['size_value'] ?>
-                                                    </a>
                                                 <?php endforeach; ?>
                                             </div>
-
                                             <input type="hidden" id="selected-spbt-id" name="spbt_id"
                                                 value="<?= $selectedVariant['spbt_id'] ?>">
                                             <input type="hidden" id="selected-size-id" name="size_id"
@@ -228,61 +220,75 @@
                                             <div class="tab-pane fade" id="tab_two">
                                                 <div class="tab-comments mt-4">
                                                     <h6 class="text-secondary mb-3">
-                                                        <i class="bi bi-chat-left-text-fill me-2"></i>Danh sách bình luận
+                                                        <i class="bi bi-chat-left-text-fill me-2"></i>Danh sách bình
+                                                        luận
                                                     </h6>
                                                     <table class="table table-bordered">
-                                                    <thead>
+                                                        <thead>
                                                             <tr>
-                                                            
-                                                            <th scope="col">Nội Dung</th>
-                                                            <th scope="col">Người Bình Luận</th>
-                                                            <th scope="col">Ngày Bình Luận</th>
+
+                                                                <th scope="col">Nội Dung</th>
+                                                                <th scope="col">Người Bình Luận</th>
+                                                                <th scope="col">Ngày Bình Luận</th>
                                                             </tr>
-                                                    </thead>  
+                                                        </thead>
                                                         <tbody>
                                                             <?php if (!empty($listComment)): ?>
-                                                                <?php foreach ($listComment as $index => $comment): ?>
-                                                                    <tr>
-                                                                        
-                                                                        <td scope="row"><?php echo htmlspecialchars($comment['noi_dung']); ?></td>
-                                                                        <td scope="row"><?php echo htmlspecialchars($comment['ho_ten']); ?></td>
-                                                                        <td scope="row">
-                                                                            <span >
-                                                                                <?php echo date('d-m-Y', strtotime($comment['ngay_tao'])); ?>
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                <?php endforeach; ?>
+                                                            <?php foreach ($listComment as $index => $comment): ?>
+                                                            <tr>
+
+                                                                <td scope="row">
+                                                                    <?php echo htmlspecialchars($comment['noi_dung']); ?>
+                                                                </td>
+                                                                <td scope="row">
+                                                                    <?php echo htmlspecialchars($comment['ho_ten']); ?>
+                                                                </td>
+                                                                <td scope="row">
+                                                                    <span>
+                                                                        <?php echo date('d-m-Y', strtotime($comment['ngay_tao'])); ?>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <?php endforeach; ?>
                                                             <?php else: ?>
-                                                                <tr>
-                                                                    <td colspan="4" class="text-center text-danger">
-                                                                        <i class="bi bi-exclamation-circle-fill"></i> Không có bình luận nào!
-                                                                    </td>
-                                                                </tr>
+                                                            <tr>
+                                                                <td colspan="4" class="text-center text-danger">
+                                                                    <i class="bi bi-exclamation-circle-fill"></i> Không
+                                                                    có bình luận nào!
+                                                                </td>
+                                                            </tr>
                                                             <?php endif; ?>
                                                         </tbody>
                                                     </table>
 
-    
+
                                                 </div>
 
                                             </div>
 
                                             <!-- Phần Người Dùng Comment -->
                                             <div class="tab-pane fade" id="tab_three">
-                                                <form action="<?php echo BASE_URL . '?act=addBinhLuan'; ?>" method="POST" class="review-form">
-                                                    <input type="hidden" name="sp_id" value="<?php echo $sp_id; ?>"> <!-- Gửi ID sản phẩm -->
+                                                <form
+                                                    action="<?php echo BASE_URL . '?act=addBinhLuan'; ?>"
+                                                    method="POST" class="review-form">
+                                                    <input type="hidden" id="selected-spbt-id" name="spbt_id"
+                                                        value="<?= $selectedVariant['spbt_id'] ?>">
+                                                    <input type="hidden" id="selected-size-id" name="size_id"
+                                                        value="<?= $selectedVariant['size_id'] ?>">
 
                                                     <div class="form-group row">
                                                         <div class="col">
                                                             <label class="col-form-label">
                                                                 <span class="text-danger">*</span> Nội dung bình luận
                                                             </label>
-                                                            <textarea name="noi_dung" class="form-control" rows="3" placeholder="Nhập bình luận của bạn..." required></textarea>
+                                                            <textarea name="noi_dung" class="form-control" rows="3"
+                                                                placeholder="Nhập bình luận của bạn..."
+                                                                required></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="buttons mt-3">
-                                                        <button class="btn btn-sqr btn-primary" type="submit">Gửi bình luận</button>
+                                                        <button class="btn btn-sqr btn-primary" type="submit">Gửi bình
+                                                            luận</button>
                                                     </div>
                                                 </form>
 
@@ -320,30 +326,30 @@
 
                             <?php
                             $tempProducts = []; // Mảng để lưu trữ các ID đã hiển thị
-                            foreach ($productCategory as $product) {
-                                // Kiểm tra nếu sản phẩm đã được hiển thị
-                                if (in_array($product['sp_id'], $tempProducts)) {
-                                    continue; // Bỏ qua nếu sản phẩm đã hiển thị
-                                }
-                                $tempProducts[] = $product['sp_id']; ?>
-                                <div class="product-item">
-                                    <figure class="product-thumb">
-                                        <a
-                                            href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id'] . '&size_id=' . $product['size_id']; ?>">
-                                            <img src="<?php echo $product['img_sp']; ?>"
-                                                alt="Ảnh sản phẩm" class="img-fluid">
-                                            <p style="font-size: 1.3vw; font-weight:700;color:red">
-                                                <?php echo number_format($product['km_sp']); ?>₫
-                                                <span style="font-size: 1.1vw; text-decoration:line-through;color:gray">
-                                                    <?php echo number_format($product['gia_sp']); ?>₫
-                                                </span>
-                                            </p>
-                                            <p style="color:burlywood; font-size:1.2vw">
-                                                <?php echo $product['ten_sp']; ?>
-                                            </p>
-                                        </a>
-                                    </figure>
-                                </div>
+    foreach ($productCategory as $product) {
+        // Kiểm tra nếu sản phẩm đã được hiển thị
+        if (in_array($product['sp_id'], $tempProducts)) {
+            continue; // Bỏ qua nếu sản phẩm đã hiển thị
+        }
+        $tempProducts[] = $product['sp_id']; ?>
+                            <div class="product-item">
+                                <figure class="product-thumb">
+                                    <a
+                                        href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id'] . '&size_id=' . $product['size_id']; ?>">
+                                        <img src="<?php echo $product['img_sp']; ?>"
+                                            alt="Ảnh sản phẩm" class="img-fluid">
+                                        <p style="font-size: 1.3vw; font-weight:700;color:red">
+                                            <?php echo number_format($product['km_sp']); ?>₫
+                                            <span style="font-size: 1.1vw; text-decoration:line-through;color:gray">
+                                                <?php echo number_format($product['gia_sp']); ?>₫
+                                            </span>
+                                        </p>
+                                        <p style="color:burlywood; font-size:1.2vw">
+                                            <?php echo $product['ten_sp']; ?>
+                                        </p>
+                                    </a>
+                                </figure>
+                            </div>
                             <?php } ?>
                         </div>
                     </div>
