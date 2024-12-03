@@ -68,4 +68,18 @@ class Taikhoan
             echo 'Lỗi getAlltaikhoan() '.$e->getMessage();
         }
     }
+
+    public function getTKById($tk_id){
+        try {
+            $sql = "SELECT * FROM taikhoan WHERE tk_id = :tk_id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':tk_id'=>$tk_id
+            ]);
+
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo 'Lỗi getTKById() '.$e->getMessage();
+        }
+    }
 }

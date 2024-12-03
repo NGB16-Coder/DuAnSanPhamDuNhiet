@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="single-input-item">
                                         <input type="password" placeholder="Nhập Password" name="mat_khau" value="<?php if (isset($_COOKIE['mat_khau'])) {
-                                            echo md5($_COOKIE['mat_khau']);
+                                            echo($_COOKIE['mat_khau']);
                                         } ?>">
                                     </div>
                                     <div class="single-input-item">
@@ -136,14 +136,6 @@
     <!-- footer area start -->
     <?php include_once "./views/layout/footer.php" ?>
     <!-- footer area end -->
-
-    <!-- Quick view modal start -->
-
-    <!-- Quick view modal end -->
-
-    <!-- offcanvas mini cart start -->
-
-    <!-- offcanvas mini cart end -->
 
     <!-- JS
 ============================================ -->

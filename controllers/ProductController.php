@@ -14,22 +14,20 @@ class ProductController
     public function chiTietProduct()
     {
         // Lấy ra thông tin sản phẩm
-        $sp_id = (int)$_GET['id'];
+        $spbt_id = (int)$_GET['id'];
         $size_id = (int)$_GET['size_id'];
-        $product = $this->product->getProductById($sp_id);
+        $product = $this->product->getProductById($spbt_id);
+        $variants = $this->product->getVariantProduct($spbt_id);
 
          // Lấy danh sách bình luận cho sản phẩm
-         $listComment = $this->product->getCommentByProduct($sp_id);
-
-
-        $variants = $this->product->getVariantProduct($sp_id);
+         $listComment = $this->product->getCommentByProduct($spbt_id);
         // var_dump($product['dm_id']);
         // die;
         // Xác định size được chọn
         $selectedSizeId = $size_id ?? $variants[0]['size_id']; // Mặc định là size đầu tiên
 
         // Lấy thông tin biến thể theo size được chọn
-        $selectedVariant = $this->product->getVariantBySizeId($sp_id, $selectedSizeId);
+        $selectedVariant = $this->product->getVariantBySizeId($spbt_id, $selectedSizeId);
         $productCategory = $this->product->getProductCategory($product['dm_id']);
         $listCategory = $this->category->getAllCategory(); // lấy dữ liệu vào mục thuộc danh mục
         if ($product && $variants) {

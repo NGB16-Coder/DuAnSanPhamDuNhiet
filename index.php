@@ -9,14 +9,15 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 // Require toàn bộ file Controllers
 require_once './controllers/HomeController.php';
 require_once './controllers/ProductController.php';
-require_once './controllers/CategoryController.php';
 require_once './controllers/CartController.php';
+require_once './controllers/OrderController.php';
 
 // Require toàn bộ file Models
 require_once './models/Product.php';
 require_once './models/Category.php';
 require_once './models/Taikhoan.php';
 require_once './models/Cart.php';
+require_once './models/Order.php';
 
 // Route
 $act = $_GET['act'] ?? 'trang-chu';
@@ -35,13 +36,19 @@ match ($act) {
     'check-dang-ky' => (new HomeController())->dangKy(),
     'dang-xuat' => (new HomeController())->logout(),
     'xoa-ghi-nho' => (new HomeController())->xoaCookie(),
-
     'lien-he' => (new HomeController())->lienHe(),
     'thanh-toan' => (new HomeController())->thanhToan(),
     'them-vao-gio-hang' => (new CartController())->addToCart(),
     'gio-hang' => (new CartController())->showCart(),
 
+    'xoa-gio-hang'=> (new CartController())->deleteCart(),
+    'xac-nhan-don' => (new OrderController())->xacNhanDon(),
+    'lich-su-don' => (new OrderController())->orderHistory(),
+    'chi-tiet-don-hang' => (new OrderController())->detailOrder(),
+
+
     // chuc nang binh luan
     'addBinhLuan' => (new HomeController())->addBinhLuan(),
     'listCommentByProduct' => (new HomeController())->listCommentByProduct(),
+
 };
