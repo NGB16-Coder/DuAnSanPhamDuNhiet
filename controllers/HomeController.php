@@ -195,5 +195,49 @@ class HomeController
         deleteSessionError();
     }
 
+      /// chuc nang binh luan
+      // thêm bình luận 
+     
 
+    // Thêm bình luận
+    public function addBinhLuan() {
+        session_start();
+    
+        if (!isset($_SESSION['taikhoan'])) {
+            echo "<script>alert('Vui lòng đăng nhập để bình luận!'); window.location.href='" . BASE_URL . "?act=dang-nhap';</script>";
+            exit;
+        }
+    
+        $listtaikhoan = $this->taikhoan->getAlltaikhoan();
+        $tk_id = null;
+    
+        foreach ($listtaikhoan as $value) {
+            if ($_SESSION['taikhoan'] == $value['email']) {
+                $tk_id = $value['tk_id'];
+                break;
+            }
+        }
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $sp_id = $_POST['sp_id'];
+            $noi_dung = $_POST['noi_dung'];
+    
+            if (empty($sp_id) || empty($noi_dung)) {
+                echo "<script>alert('Vui lòng nhập nội dung bình luận!'); window.location.href='" . BASE_URL . "?act=chi-tiet-san-pham&sp_id=" . $sp_id . "';</script>";
+                exit;
+            }
+    
+            $this->product->addBinhLuan($tk_id, $sp_id, $noi_dung);
+            echo "<script>alert('Bình luận thành công!'); window.location.href='" . BASE_URL . "?act=chi-tiet-san-pham&sp_id=" . $sp_id . "';</script>";
+            exit;
+        }
+    }
+    
+     // Lấy danh sách bình luận theo sản phẩm
+    public function listCommentByProduct() {
+        $sp_id = $_GET['$id'];
+        session_start();
+        $listComment = $this->product->getCommentByProduct($sp_id);
+        require_once "./views/sanpham_chitiet.php";
+    }
 }

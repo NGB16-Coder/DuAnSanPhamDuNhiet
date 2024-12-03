@@ -40,8 +40,15 @@ match ($act) {
     'thanh-toan' => (new HomeController())->thanhToan(),
     'them-vao-gio-hang' => (new CartController())->addToCart(),
     'gio-hang' => (new CartController())->showCart(),
+
     'xoa-gio-hang'=> (new CartController())->deleteCart(),
     'xac-nhan-don' => (new OrderController())->xacNhanDon(),
     'lich-su-don' => (new OrderController())->orderHistory(),
     'chi-tiet-don-hang' => (new OrderController())->detailOrder(),
+
+
+    // chuc nang binh luan
+    'addBinhLuan' => (new HomeController())->addBinhLuan(),
+    'listCommentByProduct' => (new HomeController())->listCommentByProduct(),
+
 };

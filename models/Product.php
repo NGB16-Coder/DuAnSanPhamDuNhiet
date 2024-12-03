@@ -96,4 +96,39 @@ class Product
         }
     }
 
+
+    
+
+    // Thêm bình luận
+    public function addBinhLuan($tk_id, $sp_id, $noi_dung) {
+        try {
+            $sql = 'INSERT INTO binh_luan (tk_id, sp_id, noi_dung, ngay_tao, an_hien) 
+                    VALUES (:tk_id, :sp_id, :noi_dung, NOW(), 1)';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':tk_id', $tk_id, PDO::PARAM_INT);
+            $stmt->bindParam(':sp_id', $sp_id, PDO::PARAM_INT);
+            $stmt->bindParam(':noi_dung', $noi_dung, PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (Exception $e) {
+            echo 'Lỗi: ' . $e->getMessage();
+        }
+    }
+
+    // Lấy bình luận theo sản phẩm
+    public function getCommentByProduct($sp_id) {
+        try {
+            $sql = 'SELECT binh_luan.bl_id, binh_luan.noi_dung, binh_luan.ngay_tao, 
+                           taikhoan.ho_ten 
+                    FROM binh_luan 
+                    INNER JOIN taikhoan ON binh_luan.tk_id = taikhoan.tk_id
+                    WHERE binh_luan.sp_id = :sp_id AND binh_luan.an_hien = 1';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':sp_id', $sp_id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo 'Lỗi: ' . $e->getMessage();
+        }
+    }
+
 }

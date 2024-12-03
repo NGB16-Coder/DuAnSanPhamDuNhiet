@@ -18,6 +18,9 @@ class ProductController
         $size_id = (int)$_GET['size_id'];
         $product = $this->product->getProductById($spbt_id);
         $variants = $this->product->getVariantProduct($spbt_id);
+
+         // Lấy danh sách bình luận cho sản phẩm
+         $listComment = $this->product->getCommentByProduct($spbt_id);
         // var_dump($product['dm_id']);
         // die;
         // Xác định size được chọn
