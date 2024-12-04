@@ -37,10 +37,13 @@
             <!-- /.card-header -->
             <div class="card-body">
            <!-- Nội dung trang quản lý bình luận -->
-<table id="example1" class="table table-bordered table-striped" style="text-align:center;">
+           <table id="example1" class="table table-bordered table-striped text-center">
     <thead>
         <tr>
             <th>ID</th>
+            
+            <th>Người Bình Luận</th>
+            <th>Sản Phẩm</th>
             <th>Nội Dung</th>
             <th>Trạng Thái</th>
             <th>Ngày Bình Luận</th>
@@ -49,45 +52,37 @@
         </tr>
     </thead>
     <tbody>
-  <?php foreach ($listComment as $Comment): ?>
-  <tr>
-    <td><?= $Comment['bl_id'] ?></td>
-    <td style="color: <?= $Comment['an_hien'] == 0 ? 'red' : 'black'; ?>;">
-      <?= $Comment['noi_dung'] ?>
-    </td>
-    <td><?= $Comment['an_hien'] ?></td>
-    <td><?= $Comment['ngay_tao'] ?></td>
-    <td><?= $Comment['ngay_update'] ?></td>
-    <td>
-      <!-- Nút Ẩn -->
-      <?php if ($Comment['an_hien'] == 1): ?>
-        <a href="<?= BASE_URL_ADMIN . '?act=hideComment&id=' . $Comment['bl_id'] ?>" 
-           onclick="return confirm('Bạn có chắc chắn ẩn bình luận này?')">
-          <button class="btn btn-warning btn-sm">Ẩn</button>
-        </a>
-      <?php else: ?>
-        <!-- Nút Hiện -->
-        <a href="<?= BASE_URL_ADMIN . '?act=showComment&id=' . $Comment['bl_id'] ?>" 
-           onclick="return confirm('Bạn có chắc chắn hiện bình luận này?')">
-          <button class="btn btn-success btn-sm">Hiện</button>
-        </a>
-      <?php endif; ?>
-    </td>
-  </tr>
-  <?php endforeach; ?>
-</tbody>
-
-    <tfoot>
+        <?php foreach ($listComment as $Comment): ?>
         <tr>
-            <th>ID</th>
-            <th>Nội Dung</th>
-            <th>Ngày Bình Luận</th>
-            <th>Ngày Cập Nhật</th>
-            <th>Trạng Thái</th>
-            <th>Chức Năng</th>
+            <td><?= $Comment['bl_id'] ?></td>
+            <td><?= ($Comment['ho_ten']) ?></td>
+            <td><?= ($Comment['ten_sp']) ?></td>
+            <td style="color: <?= $Comment['an_hien'] == 0 ? 'red' : 'black'; ?>;">
+                <?= htmlspecialchars($Comment['noi_dung']) ?>
+            </td>
+            <td><?= $Comment['an_hien'] == 1 ? 'Hiển thị' : 'Ẩn' ?></td>
+            <td><?= $Comment['ngay_tao'] ?></td>
+            <td><?= $Comment['ngay_update'] ?></td>
+            <td>
+                <?php if ($Comment['an_hien'] == 1): ?>
+                <!-- Nút Ẩn -->
+                <a href="<?= BASE_URL_ADMIN . '?act=hideComment&id=' . $Comment['bl_id'] ?>" 
+                   onclick="return confirm('Bạn có chắc chắn ẩn bình luận này?')">
+                    <button class="btn btn-warning btn-sm">Ẩn</button>
+                </a>
+                <?php else: ?>
+                <!-- Nút Hiện -->
+                <a href="<?= BASE_URL_ADMIN . '?act=showComment&id=' . $Comment['bl_id'] ?>" 
+                   onclick="return confirm('Bạn có chắc chắn hiện bình luận này?')">
+                    <button class="btn btn-success btn-sm">Hiện</button>
+                </a>
+                <?php endif; ?>
+            </td>
         </tr>
-    </tfoot>
+        <?php endforeach; ?>
+    </tbody>
 </table>
+
             </div>
             <!-- /.card-body -->
 

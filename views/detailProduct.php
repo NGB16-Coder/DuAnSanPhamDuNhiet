@@ -190,30 +190,58 @@
                                 <div class="col-lg-12">
                                     <div class="product-review-info">
                                         <ul class="nav review-tab">
-                                            <li>
+                                        <li>
                                                 <a class="active" data-bs-toggle="tab" href="#tab_one">Xem Đánh Giá</a>
                                             </li>
+                                           
                                             <li>
                                                 <a data-bs-toggle="tab" href="#tab_two">Xem Bình Luận</a>
                                             </li>
                                             <li>
                                                 <a data-bs-toggle="tab" href="#tab_three">Bình Luận</a>
                                             </li>
+                                            <li>
+                                                <a data-bs-toggle="tab" href="#tab_four">Đánh Giá </a>
+                                            </li>
                                         </ul>
                                         <div class="tab-content reviews-tab">
+                                            <!-- hiển thị đánh giá -->
                                             <div class="tab-pane fade show active" id="tab_one">
-                                                <div class="tab-one">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-                                                        fringilla augue nec est tristique auctor. Ipsum metus feugiat
-                                                        sem, quis fermentum turpis eros eget velit. Donec ac tempus
-                                                        ante. Fusce ultricies massa massa. Fusce aliquam, purus eget
-                                                        sagittis vulputate, sapien libero hendrerit est, sed commodo
-                                                        augue nisi non neque.Cras neque metus, consequat et blandit et,
-                                                        luctus a nunc. Etiam gravida vehicula tellus, in imperdiet
-                                                        ligula euismod eget. Pellentesque habitant morbi tristique
-                                                        senectus et netus et malesuada fames ac turpis egestas. Nam
-                                                        erat mi, rutrum at sollicitudin rhoncus</p>
-                                                </div>
+                                                <h6 class="text-secondary mb-3">
+                                                    <i class="bi bi-star-fill me-2"></i>Danh sách đánh giá
+                                                </h6>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Nội Dung</th>
+                                                            <th scope="col">Số Sao</th>
+                                                            <th scope="col">Người Đánh Giá</th>
+                                                            <th scope="col">Ngày Đánh Giá</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php if (!empty($listEvaluation)): ?>
+                                                            <?php foreach ($listEvaluation as $Evaluation): ?>
+                                                                <tr>
+                                                                    <td><?php echo htmlspecialchars($Evaluation['noi_dung']); ?></td>
+                                                                    <td><?php echo htmlspecialchars($Evaluation['so_sao']); ?> Sao</td>
+                                                                    <td><?php echo htmlspecialchars($Evaluation['ho_ten']); ?></td>
+                                                                    <td>
+                                                                        <span>
+                                                                            <?php echo date('d-m-Y', strtotime($Evaluation['ngay_tao'])); ?>
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        <?php else: ?>
+                                                            <tr>
+                                                                <td colspan="4" class="text-center text-danger">
+                                                                    <i class="bi bi-exclamation-circle-fill"></i> Không có đánh giá nào!
+                                                                </td>
+                                                            </tr>
+                                                        <?php endif; ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
 
                                             <!-- Phần hiển thị comment -->
@@ -290,6 +318,43 @@
                                                         <button class="btn btn-sqr btn-primary" type="submit">Gửi bình
                                                             luận</button>
                                                     </div>
+                                                </form>
+
+                                            </div>
+                                            <div class="tab-pane fade" id="tab_four">
+                                                <form action="<?php echo BASE_URL . '?act=addEvaluation'; ?>" method="POST" class="review-form">
+                                                    <input type="hidden" name="spbt_id" value="<?php echo $spbt_id; ?>"> <!-- Gửi ID sản phẩm -->
+
+                                                    <!-- Nội dung đánh giá -->
+                                                    <div class="form-group row">
+                                                        <div class="col">
+                                                            <label class="col-form-label">
+                                                                <span class="text-danger">*</span> Nội dung đánh giá
+                                                            </label>
+                                                            <textarea name="noi_dung" class="form-control" rows="3" placeholder="Nhập đánh giá của bạn..." required></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Số sao đánh giá -->
+                                                    <div class="form-group row">
+                                                        <div class="col">
+                                                            <label class="col-form-label"><span class="text-danger">*</span> Số sao</label>
+                                                            &nbsp;&nbsp;&nbsp; 1&nbsp;
+                                                            <input type="radio" value="1" name="rating">
+                                                            &nbsp;
+                                                            <input type="radio" value="2" name="rating">
+                                                            &nbsp;
+                                                            <input type="radio" value="3" name="rating">
+                                                            &nbsp;
+                                                            <input type="radio" value="4" name="rating">
+                                                            &nbsp;
+                                                            <input type="radio" value="5" name="rating" checked>
+                                                            &nbsp;5
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Nút gửi đánh giá -->
+                                                    <button class="btn btn-sqr btn-primary" type="submit">Gửi đánh giá</button>
                                                 </form>
 
                                             </div>

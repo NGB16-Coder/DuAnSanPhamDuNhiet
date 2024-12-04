@@ -71,6 +71,8 @@ match ($act) {
     // router Evaluation
     'listEvaluation' => (new AdminEvaluationController())->listEvaluation(),
     'deleteEvaluation' => (new AdminEvaluationController())->deleteEvaluation(),
+    'showEvaluation' => (new AdminEvaluationController())->showEvaluation(),
+    'hideEvaluation' => (new AdminEvaluationController())->hideEvaluation(),
 
     //router bình luận
     'listComment' => (new AdminCommentController())->listComment(),
