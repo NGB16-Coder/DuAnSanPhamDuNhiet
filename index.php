@@ -51,4 +51,9 @@ match ($act) {
     'addBinhLuan' => (new HomeController())->addBinhLuan(),
     'listCommentByProduct' => (new HomeController())->listCommentByProduct(),
 
+
+        // chức năng đánh giá
+     
+    'addEvaluation' =>(new HomeController())->addEvaluation(),
+    'listEvaluationByProduct' =>(new HomeController())->listEvaluationByProduct(),
 };

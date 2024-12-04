@@ -21,6 +21,9 @@ class ProductController
 
          // Lấy danh sách bình luận cho sản phẩm
          $listComment = $this->product->getCommentByProduct($spbt_id);
+
+          // Lấy danh sách đánh giá cho sản phẩm
+        $listEvaluation = $this->product->getEvaluationByProduct($spbt_id);
         // var_dump($product['dm_id']);
         // die;
         // Xác định size được chọn
