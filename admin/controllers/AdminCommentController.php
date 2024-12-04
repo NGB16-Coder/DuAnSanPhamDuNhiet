@@ -1,5 +1,5 @@
-<?php
 
+<?php
 class AdminCommentController
 {
     public $modelcomment;
@@ -9,12 +9,7 @@ class AdminCommentController
         $this->modelcomment = new AdminComment();
     }
 
-    // Hiển thị tất cả bình luận
-    public function listComment()
-    {
-        $listComment = $this->modelcomment->getAllComment();
-        require_once "./views/manageComment/listComment.php";
-    }
+    
 
     // Phương thức xử lý ẩn bình luận
     public function hideComment()
@@ -41,11 +36,16 @@ class AdminCommentController
             die('ID không hợp lệ.');
         }
     }
+
+    // Hiển thị tất cả bình luận
+    public function listComment()
+    {
+        // Lấy tất cả bình luận
+        $spbt_id = $_GET['sp_id'] ?? null; // Lấy ID sản phẩm từ URL (nếu có)
+        $listComment = $this->modelcomment->getAllComment($spbt_id); // Truyền ID sản phẩm để lọc
+    
+        // Gọi view hiển thị danh sách bình luận
+        require_once "./views/manageComment/listComment.php";
+    }
+    
 }
-
-
-    
-
-    
-
-

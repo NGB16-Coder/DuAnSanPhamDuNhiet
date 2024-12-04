@@ -236,6 +236,91 @@ class HomeController
         $spbt_id = $_GET['$id'];
         session_start();
         $listComment = $this->product->getCommentByProduct($spbt_id);
-        require_once "./views/sanpham_chitiet.php";
+    }
+
+    // Lấy danh sách đánh giá theo sản phẩm
+    public function listEvaluationByProduct()
+    {
+        $sp_id = $_GET['id']; // Lấy ID sản phẩm từ query string
+        session_start();
+        $listEvaluation = $this->product->getEvaluationByProduct($sp_id); // Gọi model để lấy đánh giá
+        require_once "./views/detailProduct.php"; // Chuyển dữ liệu qua view
+    }
+
+    // đánh giá
+    public function addEvaluation()
+    {
+        // Kiểm tra người dùng đã đăng nhập chưa
+        if (!isset($_SESSION['taikhoan'])) {
+            echo "<script>
+                alert('Vui lòng đăng nhập để đánh giá!');
+                window.location.href='" . BASE_URL . "?act=dang-nhap';
+              </script>";
+            exit;
+        }
+
+        // Lấy thông tin tài khoản từ phiên đăng nhập
+        $listtaikhoan = $this->taikhoan->getAlltaikhoan();
+        $tk_id = null;
+
+        foreach ($listtaikhoan as $value) {
+            if ($_SESSION['taikhoan'] == $value['email']) {
+                $tk_id = $value['tk_id'];
+                break;
+            }
+        }
+
+        if ($tk_id === null) {
+            echo "<script>
+                alert('Tài khoản không hợp lệ!');
+                window.location.href='" . BASE_URL . "';
+              </script>";
+            exit;
+        }
+
+        // Xử lý khi người dùng gửi đánh giá qua form (POST)
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $spbt_id = $_POST['spbt_id'];           // Lấy ID sản phẩm từ form
+            $noi_dung = $_POST['noi_dung'];         // Lấy nội dung đánh giá từ form
+            $so_sao = $_POST['rating'];             // Lấy số sao từ form
+            $size_id = $_POST['size_id'];
+            $sp_id = $_POST['sp_id'];
+            $size_sp = $_POST['size_sp'];
+            if (empty($spbt_id) || empty($noi_dung) || empty($so_sao)) {
+                echo "<script>
+                    alert('Vui lòng nhập đầy đủ thông tin!');
+                    window.location.href='" . BASE_URL . "?act=chi-tiet-san-pham&id=" . $sp_id . '&size_id='.$size_sp. "'; 
+                  </script>";
+                exit;
+            }
+
+            // Kiểm tra người dùng đã mua sản phẩm chưa
+            $hasPurchased = $this->product->checkUserPurchase($tk_id, $spbt_id);
+            if (!$hasPurchased) {
+                echo "<script>
+                    alert('Bạn chỉ có thể đánh giá sản phẩm mà bạn đã mua!');
+                    window.location.href='" . BASE_URL . "?act=chi-tiet-san-pham&id=" . $sp_id .'&size_id='.$size_sp.  "';
+                  </script>";
+                exit;
+            }
+
+            // Kiểm tra người dùng đã đánh giá sản phẩm này chưa
+            $hasRated = $this->product->checkUserRated($tk_id, $spbt_id);
+            if ($hasRated) {
+                echo "<script>
+                     alert('Bạn đã đánh giá sản phẩm này trước đó!');
+                     window.location.href='" . BASE_URL . "?act=chi-tiet-san-pham&id=" . $sp_id . '&size_id='.$size_sp. "'; 
+                   </script>";
+                exit;
+            }
+            // var_dump($spbt_id);var_dump($so_sao);var_dump($tk_id);var_dump($sp_id);var_dump($size_sp);die;
+
+            // Thêm đánh giá vào cơ sở dữ liệu
+            $this->product->addEvaluation($tk_id, $spbt_id, $sp_id, $noi_dung, $so_sao);
+
+            // Quay lại trang chi tiết sản phẩm
+            header('location: ' . BASE_URL . '?act=chi-tiet-san-pham&id=' . $sp_id . '&size_id='.$size_sp);
+            exit;
+        }
     }
 }

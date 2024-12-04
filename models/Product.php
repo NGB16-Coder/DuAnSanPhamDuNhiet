@@ -126,13 +126,90 @@ class Product
                            taikhoan.ho_ten 
                     FROM binh_luan 
                     INNER JOIN taikhoan ON binh_luan.tk_id = taikhoan.tk_id
-                    WHERE binh_luan.spbt_id = :spbt_id AND binh_luan.an_hien = 1';
+                    WHERE binh_luan.spbt_id = :spbt_id AND binh_luan.an_hien = 1
+                    ORDER BY binh_luan.ngay_tao DESC';
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':spbt_id', $spbt_id, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (Exception $e) {
             echo 'Lỗi: ' . $e->getMessage();
+        }
+    }
+
+
+    /// chức năng đánh giá sản ph
+    public function addEvaluation($tk_id, $spbt_id, $sp_id, $noi_dung, $so_sao)
+    {
+        try {
+            $sql = 'INSERT INTO danh_gia (tk_id, spbt_id, sp_id, noi_dung, so_sao) 
+                    VALUES (:tk_id, :spbt_id, :sp_id, :noi_dung, :so_sao)';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':tk_id', $tk_id, PDO::PARAM_INT);
+            $stmt->bindParam(':spbt_id', $spbt_id, PDO::PARAM_INT);
+            $stmt->bindParam(':sp_id', $sp_id, PDO::PARAM_INT);
+            $stmt->bindParam(':noi_dung', $noi_dung, PDO::PARAM_STR);
+            $stmt->bindParam(':so_sao', $so_sao, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (Exception $e) {
+            echo 'Lỗi: addEvaluation' . $e->getMessage();
+        }
+    }
+
+    // kiểm tra mua hàng
+    public function checkUserPurchase($tk_id, $spbt_id)
+    {
+        try {
+            $sql = 'SELECT COUNT(*) AS count
+                FROM chi_tiet_don_hang
+                JOIN don_hang ON chi_tiet_don_hang.order_id = don_hang.order_id
+                WHERE don_hang.tk_id = :tk_id 
+                  AND chi_tiet_don_hang.spbt_id = :spbt_id
+                  AND don_hang.trang_thai = 3'; // Chỉ kiểm tra các đơn hàng đã giao
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':tk_id', $tk_id, PDO::PARAM_INT);
+            $stmt->bindParam(':spbt_id', $spbt_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['count'] > 0; // Trả về true nếu có giao dịch
+        } catch (Exception $e) {
+            echo 'Lỗi checkUserPurchase(): ' . $e->getMessage();
+            return false;
+        }
+    }
+
+
+    public function checkUserRated($tk_id, $spbt_id)
+    {
+        $query = "SELECT * FROM danh_gia WHERE tk_id = :tk_id AND spbt_id = :spbt_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':tk_id', $tk_id);
+        $stmt->bindParam(':spbt_id', $spbt_id);
+        $stmt->execute();
+        return $stmt->rowCount() > 0; // Trả về true nếu đã có đánh giá
+    }
+
+
+
+
+    // list đánh giá
+    public function getEvaluationByProduct($sp_id)
+    {
+        try {
+            $sql = 'SELECT danh_gia.dg_id, danh_gia.noi_dung, danh_gia.so_sao, danh_gia.ngay_tao, 
+                           taikhoan.ho_ten 
+                    FROM danh_gia 
+                    INNER JOIN taikhoan ON danh_gia.tk_id = taikhoan.tk_id
+                    WHERE danh_gia.sp_id = :sp_id AND danh_gia.an_hien = 1
+                    ORDER BY danh_gia.ngay_tao DESC';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':sp_id', $sp_id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo 'Lỗi: getEvaluationByProduct' . $e->getMessage();
         }
     }
 
