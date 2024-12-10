@@ -17,15 +17,16 @@ class OrderController
         $this->taikhoan = new taikhoan();
     }
 
-    // Phương thức checkout đã có ở bước trước
-
     public function xacNhanDon()
     {
         $tk_id = $_GET['id'];
         $cartItems = $this->cartModel->getCartItems($tk_id);
         $selectedItems = [];
-        // var_dump($_POST['select-product']);
-
+        $ten_nhan = $_POST['ten_nhan'] ? $_POST['ten_nhan'] : null ;
+        $sdt_nhan = $_POST['sdt_nhan'] ? $_POST['sdt_nhan'] : null ;
+        $dia_chi_nhan = $_POST['dia_chi_nhan'] ? $_POST['dia_chi_nhan'] : null ;
+        // var_dump($ten_nhan, $sdt_nhan, $dia_chi_nhan);
+        // die;
         if (isset($_POST['select-product'])) {
             foreach ($cartItems as $item) {
                 if (in_array($item['id'], $_POST['select-product'])) {
@@ -33,9 +34,7 @@ class OrderController
                 }
             }
         }
-        // var_dump($selectedItems);
-        // Lưu thông tin đơn hàng
-        $order_id = $this->orderModel->createOrder($tk_id, $selectedItems);
+        $order_id = $this->orderModel->createOrder($tk_id,$ten_nhan,$sdt_nhan,$dia_chi_nhan, $selectedItems);
 
 
         // Xóa sản phẩm đã đặt hàng khỏi giỏ

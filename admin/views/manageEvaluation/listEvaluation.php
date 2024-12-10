@@ -64,9 +64,7 @@
                       </td>
                       <td><?= $Evaluation['ngay_tao'] ?></td>
                       <td>
-                        <a href="<?= BASE_URL_ADMIN . '?act=deleteEvaluation&id=' . $Evaluation['dg_id'] ?>"
-                          onclick="return confirm('Bạn có chắc chắn xóa hay không?')"><button class="btn btn-danger">Xóa</button></a>
-
+                        
                         <?php if ($Evaluation['an_hien'] == 1): ?>
                           <a href="<?php echo BASE_URL_ADMIN . '?act=hideEvaluation&id=' . $Evaluation['dg_id']; ?>" class="btn btn-warning">Ẩn</a>
                         <?php else: ?>

@@ -9,7 +9,7 @@ class OrderModel
         $this->conn = connectDB();
     }
 
-    public function createOrder($tk_id, $items)
+    public function createOrder($tk_id,$ten_nhan,$sdt_nhan,$dia_chi_nhan, $items)
     {
         try {
             $totalQuantity = 0;
@@ -19,10 +19,13 @@ class OrderModel
                 $totalAmount += $item['km_sp'] * $item['so_luong'];
             }
 
-            $sql = "INSERT INTO don_hang (tk_id, tong_so_luong, tong_tien) VALUES (:tk_id, :totalQuantity, :totalAmount)";
+            $sql = "INSERT INTO don_hang (tk_id,ten_nhan,sdt_nhan,dia_chi_nhan, tong_so_luong, tong_tien) VALUES (:tk_id,:ten_nhan,:sdt_nhan,:dia_chi_nhan, :totalQuantity, :totalAmount)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':tk_id' => $tk_id,
+                ':ten_nhan' => $ten_nhan,
+                ':sdt_nhan' => $sdt_nhan,
+                ':dia_chi_nhan' => $dia_chi_nhan,
                 ':totalQuantity' => $totalQuantity,
                 ':totalAmount' => $totalAmount
             ]);

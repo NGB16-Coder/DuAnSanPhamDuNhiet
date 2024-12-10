@@ -84,11 +84,11 @@
               <div class="col-sm-4 invoice-col">
                 Người nhận
                 <address>
-                  <strong><?= $detailDonHang['ten_nhan'] ? $detailDonHang['ten_nhan'] : "Không có" ?></strong><br>
+                  <strong><?= $detailDonHang['ten_nhan'] ? $detailDonHang['ten_nhan'] : $detailDonHang['ho_ten'] ?></strong><br>
                   Phone:
-                  <?= $detailDonHang['sdt_nhan'] ? $detailDonHang['sdt_nhan'] : "Không có" ?><br>
+                  <?= $detailDonHang['sdt_nhan'] ? $detailDonHang['sdt_nhan'] : $detailDonHang['sdt'] ?><br>
                   Địa chỉ:
-                  <?= $detailDonHang['dia_chi_nhan'] ? $detailDonHang['dia_chi_nhan'] : "Không có" ?>
+                  <?= $detailDonHang['dia_chi_nhan'] ? $detailDonHang['dia_chi_nhan'] : $detailDonHang['dia_chi'] ?>
                 </address>
               </div>
               <!-- /.col -->

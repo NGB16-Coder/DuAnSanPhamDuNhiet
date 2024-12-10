@@ -45,7 +45,8 @@ match ($act) {
     'xac-nhan-don' => (new OrderController())->xacNhanDon(),
     'lich-su-don' => (new OrderController())->orderHistory(),
     'chi-tiet-don-hang' => (new OrderController())->detailOrder(),
-
+    'info-Acc' => (new HomeController())-> infoAcc(),
+    'edit-thong-tin' => (new HomeController())-> editInfo(),
 
     // chuc nang binh luan
     'addBinhLuan' => (new HomeController())->addBinhLuan(),
