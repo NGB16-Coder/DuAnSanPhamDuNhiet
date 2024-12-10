@@ -18,20 +18,31 @@ class HomeController
     }
     public function trangchu()
     {
-        $listProduct = $this->product->getAll();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['search'])) {
+            $listProduct = $this->product->loc($_POST['search']);
+            // var_dump($listProduct); // In ra mảng sản phẩm
+        } else {
+            // Nếu không có tìm kiếm, lấy tất cả sản phẩm
+            $listProduct = $this->product->getAll();
+        }
         $listCategory = $this->category->getAllCategory();
         $listtaikhoan = $this->taikhoan->getAlltaikhoan();
 
-        foreach ($listtaikhoan as $value) {
-            if ($_SESSION['taikhoan'] == $value['email']) {
-                $tk_id = $value['tk_id'];
-                break;
+        if (isset($_SESSION['taikhoan']) && !empty($_SESSION['taikhoan'])) {
+            $tk_id = null;
+            foreach ($listtaikhoan as $value) {
+                if ($_SESSION['taikhoan'] === $value['email']) {
+                    $tk_id = $value['tk_id'];
+                    break;
+                }
             }
+        } else {
+            $tk_id = null;
         }
-        // var_dump($listCategory);
-        // die;
+
         require_once './trangchu.php';
     }
+
     public function gioiThieu()
     {
         $listCategory = $this->category->getAllCategory();
@@ -61,6 +72,7 @@ class HomeController
 
             // Kiểm tra thông tin đăng nhập
             $taikhoan = $this->taikhoan->checkLogin($email, $mat_khau);
+            // var_dump($email, $mat_khau);die;
             // var_dump($taikhoan);
             // die;
             if ($taikhoan === $email) { // đăng nhập thành công
