@@ -205,7 +205,6 @@ class Product
                     INNER JOIN sp_bien_the ON san_pham.sp_id = sp_bien_the.sp_id
                     INNER JOIN tb_size ON tb_size.size_id = sp_bien_the.size_id
                     WHERE LOWER(san_pham.ten_sp) LIKE LOWER(:keyword)';
-
             // Thêm các điều kiện bổ sung nếu có
             if ($size_id !== null) {
                 $sql .= " AND tb_size.size_id = :size_id";

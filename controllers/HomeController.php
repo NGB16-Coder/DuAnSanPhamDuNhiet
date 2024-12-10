@@ -40,9 +40,11 @@ class HomeController
             $tk_id = null;
         }
 
+      
         require_once './trangchu.php';
     }
 
+    
     public function gioiThieu()
     {
         $listCategory = $this->category->getAllCategory();
