@@ -121,7 +121,7 @@
                                                     <span class="text-danger">*</span> Nội dung đánh giá
                                                 </label>
                                                 <textarea name="orderDetails[<?= $product['spbt_id'] ?>][noi_dung]" class="form-control" rows="3"
-                                                    placeholder="Nhập đánh giá của bạn..." required></textarea>
+                                                    placeholder="Nhập đánh giá của bạn..."></textarea>
                                             </div>
                                         </div>
 

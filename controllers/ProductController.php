@@ -27,10 +27,10 @@ class ProductController
             $sosaoData['sodanhgia'] = 0;
         }
         // Lấy danh sách bình luận cho sản phẩm
-        $listComment = $this->product->getCommentByProduct($spbt_id);
+        $listComment = $this->product->getCommentByProduct($sp_id);
 
         // Lấy danh sách đánh giá cho sản phẩm
-        $listEvaluation = $this->product->getEvaluationByProduct($spbt_id);
+        $listEvaluation = $this->product->getEvaluationByProduct($sp_id);
         // var_dump($product['dm_id']);
         // die;
         // Xác định size được chọn
