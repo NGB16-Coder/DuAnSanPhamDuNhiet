@@ -223,7 +223,7 @@ class HomeController
             $size_id = $_POST['size_id'];
             $noi_dung = $_POST['noi_dung'];
             $sp_id = $_POST['sp_id'];
-            $this->product->addBinhLuan($tk_id, $spbt_id, $noi_dung);
+            $this->product->addBinhLuan($tk_id, $sp_id, $noi_dung);
             header('location: '.BASE_URL . '?act=chi-tiet-san-pham&id=' . $spbt_id . '&size_id='.$size_id.'&sp_id='.$sp_id);
             exit;
         } else {
@@ -234,20 +234,20 @@ class HomeController
     }
 
     // Lấy danh sách bình luận theo sản phẩm
-    public function listCommentByProduct()
-    {
-        $spbt_id = $_GET['spbt_id'];
-        session_start();
-        $listComment = $this->product->getCommentByProduct($spbt_id);
-    }
+    // public function listCommentByProduct()
+    // {
+    //     $spbt_id = $_GET['spbt_id'];
+    //     session_start();
+    //     $listComment = $this->product->getCommentByProduct($spbt_id);
+    // }
 
-    public function listEvaluationByProduct()
-    {
-        $sp_id = $_GET['sp_id'];
-        var_dump($sp_id);die;
-        $listEvaluation = $this->product->getEvaluationByProduct($sp_id);
-        require_once "./views/detailProduct.php";
-    }
+    // public function listEvaluationByProduct()
+    // {
+    //     $sp_id = $_GET['sp_id'];
+    //     var_dump($sp_id);die;
+    //     $listEvaluation = $this->product->getEvaluationByProduct($sp_id);
+    //     require_once "./views/detailProduct.php";
+    // }
 
     public function addEvaluation()
     {
