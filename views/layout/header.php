@@ -63,8 +63,10 @@
                                             <div>
                                                 <?php if (isset($_SESSION['taikhoan'])) { ?>
                                                 <p><span style="font-weight: 600;">Acc:
-                                                    </span><a href="my-account.html"
-                                                        style="font-size: 11px;"><?=$_SESSION['taikhoan']?></a>
+                                                    </span>
+                                                    <a
+                                                        style="font-size: 11px;" href="<?= BASE_URL.'?act=info-Acc&id='.$tk_id ?>"><?=$_SESSION['taikhoan']?></a>
+
                                                 </p>
                                                 <br>
                                                 <p><a style="font-size: 14px;"
@@ -232,7 +234,9 @@
                                     href="<?php echo BASE_URL.'?act=san-pham-theo-danh-muc&id='.$category['dm_id'] ?>"><?= $category['ten_dm'] ?></a>
                             </li>
                             <?php }; ?>
-                            <li><a href="<?= BASE_URL.'?act=lien-he'?>">liên hệ</a>
+                            <li><a
+                                    href="<?= BASE_URL.'?act=lien-he'?>">liên
+                                    hệ</a>
                             </li>
                             <li><a
                                     href="<?= BASE_URL.'?act=gioi-thieu'?>">Về

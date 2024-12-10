@@ -21,14 +21,29 @@ class HomeController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['search'])) {
             $listProduct = $this->product->loc($_POST['search']);
             // var_dump($listProduct); // In ra mảng sản phẩm
-        } else {                                               
+        } else {
             // Nếu không có tìm kiếm, lấy tất cả sản phẩm
             $listProduct = $this->product->getAll();
         }
         $listCategory = $this->category->getAllCategory();
+        $listtaikhoan = $this->taikhoan->getAlltaikhoan();
+
+        if (isset($_SESSION['taikhoan']) && !empty($_SESSION['taikhoan'])) {
+            $tk_id = null;
+            foreach ($listtaikhoan as $value) {
+                if ($_SESSION['taikhoan'] === $value['email']) {
+                    $tk_id = $value['tk_id'];
+                    break;
+                }
+            }
+        } else {
+            $tk_id = null;
+        }
+
       
         require_once './trangchu.php';
     }
+
     
     public function gioiThieu()
     {
@@ -59,6 +74,7 @@ class HomeController
 
             // Kiểm tra thông tin đăng nhập
             $taikhoan = $this->taikhoan->checkLogin($email, $mat_khau);
+            // var_dump($email, $mat_khau);die;
             // var_dump($taikhoan);
             // die;
             if ($taikhoan === $email) { // đăng nhập thành công
@@ -286,6 +302,37 @@ class HomeController
                 exit;
             }
 
+        }
+    }
+
+    public function infoAcc()
+    {
+        $tk_id = $_GET['id'];
+        $listCategory = $this->category->getAllCategory();
+        $TKById = $this->taikhoan->getTKById($tk_id);
+        require_once './views/infoAcc.php';
+    }
+    public function editInfo()
+    {
+        $tk_id = $_POST['tk_id'];
+        $ho_ten = $_POST['ho_ten'];
+        $sdt = $_POST['sdt'];
+        $email = $_POST['email'];
+        $dia_chi = $_POST['dia_chi'];
+        $mat_khau = $_POST['mat_khau'];
+        $checkEdit = $this->taikhoan-> editInfo($tk_id, $ho_ten, $sdt, $email, $dia_chi, $mat_khau);
+        if ($checkEdit) {
+            echo "<script>
+                alert('Sửa thông tin thành công!');
+                window.location.href='" . BASE_URL . "?act=info-Acc&id=" . $tk_id . "';
+                </script>";
+            exit;
+        } else {
+            echo "<script>
+                alert('Sửa thông tin thất bại!');
+                window.location.href='" . BASE_URL . "?act=info-Acc&id=" . $tk_id . "';
+                </script>";
+            exit;
         }
     }
 }

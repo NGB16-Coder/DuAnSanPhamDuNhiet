@@ -195,7 +195,8 @@ class Product
         }
     }
 
-    public function loc($kw, $size_id = null, $km_sp = null, $sp_id = null) {
+    public function loc($kw, $size_id = null, $km_sp = null, $sp_id = null)
+    {
         try {
             // Bắt đầu câu lệnh SQL với JOIN và các điều kiện tìm kiếm
             $sql = 'SELECT san_pham.*, danh_muc.ten_dm, tb_size.size_value, tb_size.size_id, sp_bien_the.* 
@@ -204,7 +205,6 @@ class Product
                     INNER JOIN sp_bien_the ON san_pham.sp_id = sp_bien_the.sp_id
                     INNER JOIN tb_size ON tb_size.size_id = sp_bien_the.size_id
                     WHERE LOWER(san_pham.ten_sp) LIKE LOWER(:keyword)';
-    
             // Thêm các điều kiện bổ sung nếu có
             if ($size_id !== null) {
                 $sql .= " AND tb_size.size_id = :size_id";
@@ -215,16 +215,16 @@ class Product
             if ($sp_id !== null) {
                 $sql .= " AND sp_bien_the.sp_id = :sp_id";
             }
-    
+
             // Sắp xếp theo ngày tạo của sản phẩm
             $sql .= " ORDER BY sp_bien_the.ngay_tao";
-    
+
             // Chuẩn bị câu lệnh SQL
             $stmt = $this->conn->prepare($sql);
-    
+
             // Ràng buộc giá trị từ khóa tìm kiếm
             $stmt->bindValue(':keyword', '%' . $kw . '%', PDO::PARAM_STR);
-    
+
             // Ràng buộc các giá trị điều kiện nếu có
             if ($size_id !== null) {
                 $stmt->bindValue(':size_id', $size_id, PDO::PARAM_INT);
@@ -235,13 +235,13 @@ class Product
             if ($sp_id !== null) {
                 $stmt->bindValue(':sp_id', $sp_id, PDO::PARAM_INT);
             }
-    
+
             // Thực thi câu lệnh SQL
             $stmt->execute();
-    
+
             // Trả về kết quả
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         } catch (Exception $e) {
             // Nếu có lỗi, hiển thị thông báo lỗi
             echo 'Lỗi: loc ' . $e->getMessage();

@@ -69,17 +69,39 @@ class Taikhoan
         }
     }
 
-    public function getTKById($tk_id){
+    public function getTKById($tk_id)
+    {
         try {
             $sql = "SELECT * FROM taikhoan WHERE tk_id = :tk_id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
-                ':tk_id'=>$tk_id
+                ':tk_id' => $tk_id
             ]);
 
             return $stmt->fetch();
         } catch (Exception $e) {
             echo 'Lỗi getTKById() '.$e->getMessage();
+        }
+    }
+
+    public function editInfo($tk_id, $ho_ten, $sdt, $email, $dia_chi, $mat_khau)
+    {
+        try {
+            $sql = "UPDATE taikhoan SET ho_ten=:ho_ten, dia_chi=:dia_chi, email=:email, sdt=:sdt, mat_khau=:mat_khau 
+                    WHERE tk_id = :tk_id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':tk_id' => $tk_id,
+                ':ho_ten' => $ho_ten,
+                ':dia_chi' => $dia_chi,
+                ':email' => $email,
+                ':sdt' => $sdt,
+                ':mat_khau' => $mat_khau,
+            ]);
+
+            return true;
+        } catch (Exception $e) {
+            echo 'Lỗi editInfo() '.$e->getMessage();
         }
     }
 }
