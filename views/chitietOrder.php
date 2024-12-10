@@ -107,6 +107,7 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
+                            <th>Ảnh sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Size</th>
                             <th>Giá mua</th>
@@ -115,9 +116,12 @@
                         </thead>
                         <tbody>
                           <?php
-        //  var_dump($productDonHang);
+        //  var_dump($productDonHang);  
         foreach ($productDonHang as $sanpham) { ?>
                           <tr>
+                            <td>
+                              <img style="max-width:130px" src="<?= $sanpham['img_sp']?>" alt="Ảnh sp">
+                            </td>
                             <td>
                               <?= $sanpham['ten_sp'] ?>
                             </td>

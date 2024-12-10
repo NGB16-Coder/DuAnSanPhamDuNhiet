@@ -18,19 +18,15 @@ class AdminEvaluation
                         danh_gia.so_sao,
                         danh_gia.an_hien,
                         danh_gia.ngay_tao,
-                        danh_gia.ngay_update,
                         san_pham.ten_sp,
+                        tb_size.size_value,
                         taikhoan.ho_ten
                     FROM 
                         danh_gia
-                    JOIN 
-                        san_pham 
-                    ON 
-                        danh_gia.spbt_id = san_pham.sp_id
-                    JOIN 
-                        taikhoan 
-                    ON 
-                        danh_gia.tk_id = taikhoan.tk_id';
+                    JOIN  sp_bien_the  ON   danh_gia.spbt_id = sp_bien_the.spbt_id
+                    JOIN  taikhoan  ON   danh_gia.tk_id = taikhoan.tk_id
+                    JOIN san_pham ON san_pham.sp_id = sp_bien_the.sp_id
+                    JOIN tb_size ON tb_size.size_id = sp_bien_the.size_id ';
             
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();

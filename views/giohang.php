@@ -77,7 +77,8 @@
                                     style="text-align:center">
                                     <thead>
                                         <tr>
-                                            <th><input style="width:15px;height:15px;" type="checkbox" id="select-all"> Chọn tất cả</th>
+                                            <th><input style="width:15px;height:15px;" type="checkbox" id="select-all">
+                                                Chọn tất cả</th>
                                             <th>Ảnh sản phẩm</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Size</th>
@@ -88,15 +89,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
+                                        <?php
                                         $tongTatCaTien = 0;
-                                        foreach ($cartItems as $item):
-                                        $thanhTien = $item['km_sp'] * $item['so_luong'];
-                                        $tongTatCaTien += $thanhTien;
-                                        ?>
+                                foreach ($cartItems as $item):
+                                    $thanhTien = $item['km_sp'] * $item['so_luong'];
+                                    $tongTatCaTien += $thanhTien;
+                                    ?>
                                         <tr>
                                             <td>
-                                                <input style="width:20px;height:20px;" type="checkbox" class="select-product" name="select-product[]" data-price="<?= $item['km_sp'] * $item['so_luong'] ?>"
+                                                <input style="width:20px;height:20px;" type="checkbox"
+                                                    class="select-product" name="select-product[]"
+                                                    data-price="<?= $item['km_sp'] * $item['so_luong'] ?>"
                                                     value="<?= $item['id'] ?>">
                                             </td>
                                             <td><img style="max-width: 100px;"
@@ -150,7 +153,10 @@
                                 Giỏ hàng chưa có sản phẩm
                             </div>
                             <?php endif; ?>
-                            <p class="d-flex justify-content-end"><a href="<?= BASE_URL . '?act=lich-su-don&id=' . $tk_id ?>" style="text-decoration: none; font-size:1.2vw" class="btn btn-info">Lịch sử đơn hàng</a></p>      
+                            <p class="d-flex justify-content-end"><a
+                                    href="<?= BASE_URL . '?act=lich-su-don&id=' . $tk_id ?>"
+                                    style="text-decoration: none; font-size:1.2vw" class="btn btn-info">Lịch sử đơn
+                                    hàng</a></p>
                         </div>
                     </div>
                 </div>

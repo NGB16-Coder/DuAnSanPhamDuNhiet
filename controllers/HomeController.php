@@ -210,7 +210,6 @@ class HomeController
         }
 
         $listtaikhoan = $this->taikhoan->getAlltaikhoan();
-        $tk_id = null;
 
         foreach ($listtaikhoan as $value) {
             if ($_SESSION['taikhoan'] == $value['email']) {
@@ -223,20 +222,65 @@ class HomeController
             $spbt_id = $_POST['spbt_id'];
             $size_id = $_POST['size_id'];
             $noi_dung = $_POST['noi_dung'];
-
+            $sp_id = $_POST['sp_id'];
             $this->product->addBinhLuan($tk_id, $spbt_id, $noi_dung);
-            header('location: '.BASE_URL . '?act=chi-tiet-san-pham&id=' . $spbt_id . '&size_id='.$size_id);
+            header('location: '.BASE_URL . '?act=chi-tiet-san-pham&id=' . $spbt_id . '&size_id='.$size_id.'&sp_id='.$sp_id);
             exit;
+        } else {
+            echo "<script>
+            window.history.back();
+            </script>";
         }
     }
 
     // Lấy danh sách bình luận theo sản phẩm
     public function listCommentByProduct()
     {
-        $spbt_id = $_GET['$id'];
+        $spbt_id = $_GET['spbt_id'];
         session_start();
         $listComment = $this->product->getCommentByProduct($spbt_id);
-        require_once "./views/sanpham_chitiet.php";
+    }
+
+    public function listEvaluationByProduct()
+    {
+        $sp_id = $_GET['sp_id'];
+        session_start();
+        $listEvaluation = $this->product->getEvaluationByProduct($sp_id);
+        require_once "./views/detailProduct.php";
+    }
+
+    public function addEvaluation()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $orderDetails = $_POST['orderDetails'];
+            $order_id = $_POST['order_id'];
+            $tk_id = $_POST['tk_id'];
+
+            if (is_array($orderDetails)) {
+                foreach ($orderDetails as $product) {
+                    // Lấy dữ liệu từng sản phẩm
+                    $spbt_id = $product['spbt_id'];
+                    $sp_id = $product['sp_id'];
+                    $so_sao = $product['so_sao'];
+                    $noi_dung = $product['noi_dung'];
+                    // var_dump($spbt_id, $sp_id, $so_sao, $noi_dung, $tk_id, $order_id);
+                    // die();
+                    $this->product->addEvaluation($tk_id, $spbt_id, $sp_id, $order_id, $noi_dung, $so_sao);
+                }
+                echo "<script>
+                alert('Đánh giá của bạn đã được gửi thành công!');
+                window.location.href='" . BASE_URL . "?act=lich-su-don&id=" . $tk_id . "';
+                </script>";
+                exit;
+            } else {
+                echo "<script>
+                alert('Gửi không thành công!');
+                window.history.back();
+                </script>";
+                exit;
+            }
+
+        }
     }
 
      // Lấy danh sách đánh giá theo sản phẩm

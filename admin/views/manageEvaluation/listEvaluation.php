@@ -41,12 +41,12 @@
                   <tr>
                     <th>ID</th>
                     <th>Tên Sản Phẩm</th>
+                    <th>Size</th>
                     <th>Người Đánh Giá</th>
                     <th>Nội Dung</th>
                     <th>Số Sao</th>
                     <th>Ẩn / Hiện</th>
                     <th>Ngày Tạo</th>
-                    <th>Ngày Update</th>
                     <th>Chức Năng</th>
                   </tr>
                 </thead>
@@ -55,6 +55,7 @@
                     <tr>
                       <td><?= $Evaluation['dg_id'] ?></td>
                       <td><?= $Evaluation['ten_sp'] ?></td>
+                      <td><?= $Evaluation['size_value'] ?></td>
                       <td><?= $Evaluation['ho_ten'] ?></td>
                       <td><?= $Evaluation['noi_dung'] ?></td>
                       <td><?= $Evaluation['so_sao'] ?></td>
@@ -62,7 +63,6 @@
                         <?= $Evaluation['an_hien'] == 1 ? 'Hiển Thị' : 'Ẩn'; ?>
                       </td>
                       <td><?= $Evaluation['ngay_tao'] ?></td>
-                      <td><?= $Evaluation['ngay_update'] ?></td>
                       <td>
                         <a href="<?= BASE_URL_ADMIN . '?act=deleteEvaluation&id=' . $Evaluation['dg_id'] ?>"
                           onclick="return confirm('Bạn có chắc chắn xóa hay không?')"><button class="btn btn-danger">Xóa</button></a>

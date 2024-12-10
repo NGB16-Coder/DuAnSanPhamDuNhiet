@@ -94,6 +94,19 @@ class AdminProduct
             echo 'Lỗi getDetailProduct() '.$e->getMessage();
         }
     }
+    public function getSanPham($sp_id)
+    {
+        try {
+            $sql = 'SELECT * FROM san_pham WHERE sp_id = :sp_id';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':sp_id' => $sp_id
+            ]);
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo 'Lỗi getSanPham() '.$e->getMessage();
+        }
+    }
 
     public function updateProduct($ten_sp, $mo_ta, $new_file, $dm_id, $gia_sp, $km_sp, $so_luong, $spbt_id, $sp_id)
     {
@@ -132,19 +145,19 @@ class AdminProduct
                 ':sp_id' => $sp_id
             ]);
 
-            $sql = "SELECT * FROM san_pham WHERE sp_id = :sp_id";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
-                ':sp_id' => $sp_id
-            ]);
-            $checkPrd = $stmt->fetchAll();
-            if ($checkPrd['sp_id']) {
+            // $sql = "SELECT * FROM san_pham WHERE sp_id = :sp_id";
+            // $stmt = $this->conn->prepare($sql);
+            // $stmt->execute([
+            //     ':sp_id' => $sp_id
+            // ]);
+            // $checkPrd = $stmt->fetchAll();
+            // if ($checkPrd['sp_id']) {
                 $sql = "DELETE FROM san_pham WHERE sp_id=:sp_id";
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute([
                     ':sp_id' => $sp_id
                 ]);
-            }
+            // }
             return true;
         } catch (Exception $e) {
             echo 'Lỗi deleteProduct() '.$e->getMessage();

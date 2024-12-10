@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -93,13 +94,24 @@
                                             <?= $product['ten_sp'] ?>
                                         </h2>
                                         <div class="ratings d-flex">
-                                            <span><i class="fa fa-star-o"></i></span>
-                                            <span><i class="fa fa-star-o"></i></span>
-                                            <span><i class="fa fa-star-o"></i></span>
-                                            <span><i class="fa fa-star-o"></i></span>
-                                            <span><i class="fa fa-star-o"></i></span>
+                                            <?php
+                                            $sosao = round($sosaoData['sosao'], 1); // Làm tròn đến 1 chữ số
+    $sodanhgia = $sosaoData['sodanhgia'];
+
+    // Hiển thị ngôi sao (đầy hoặc trống)
+    for ($i = 1; $i <= 5; $i++): ?>
+                                            <?php if ($i <= floor($sosao)): ?>
+                                            <span><i class="fa fa-star"></i></span> <!-- Sao đầy -->
+                                            <?php elseif ($i - $sosao < 1): ?>
+                                            <span><i class="fa fa-star-half-o"></i></span> <!-- Sao nửa -->
+                                            <?php else: ?>
+                                            <span><i class="fa fa-star-o"></i></span> <!-- Sao trống -->
+                                            <?php endif; ?>
+                                            <?php endfor; ?>
+
                                             <div class="pro-review">
-                                                <span>1 Reviews</span>
+                                                <span><?= $sodanhgia ?>
+                                                    Đánh giá</span>
                                             </div>
                                         </div>
                                         <div class="mt-3">
@@ -126,9 +138,11 @@
                                                 </button>
                                                 <?php endforeach; ?>
                                             </div>
-                                            <input type="hidden" id="selected-spbt-id" name="spbt_id"
+
+                                            <!-- Các input bên trong form -->
+                                            <input type="hidden" class="selected-spbt-id" name="spbt_id"
                                                 value="<?= $selectedVariant['spbt_id'] ?>">
-                                            <input type="hidden" id="selected-size-id" name="size_id"
+                                            <input type="hidden" class="selected-size-id" name="size_id"
                                                 value="<?= $selectedVariant['size_id'] ?>">
 
                                             <div class="price-box mt-3">
@@ -144,9 +158,9 @@
                                                 <?php endif; ?>
 
                                                 <h6 class="option-title mt-3">Còn:
-                                                    <span id="selected-stock"
-                                                        style="font-weight: 700;"><?= $selectedVariant['so_luong'] ?></span>
-                                                    sản phẩm
+                                                    <span id="selected-stock" style="font-weight: 700;">
+                                                        <?= $selectedVariant['so_luong'] ?>
+                                                    </span> sản phẩm
                                                 </h6>
                                             </div>
 
@@ -160,15 +174,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <br>
-                                            <h6 class="option-title mt-3">Còn:
-                                                <span id="selected-stock"
-                                                    style="font-weight: 700;"><?= $selectedVariant['so_luong'] ?></span>
-                                                sản phẩm
-                                            </h6>
-                                            <button type="submit" class="btn btn-cart2 mt-2" id="add-to-cart-btn">Thêm
+                                            <br> <br>
+                                            <button type="submit" class="btn btn-cart2" id="add-to-cart-btn">Thêm
                                                 vào giỏ hàng</button>
                                         </form>
+
+                                        <!-- Các input ngoài form -->
+                                        <input type="hidden" class="selected-spbt-id"
+                                            value="<?= $selectedVariant['spbt_id'] ?>">
+                                        <input type="hidden" class="selected-size-id"
+                                            value="<?= $selectedVariant['size_id'] ?>">
+
 
 
 
@@ -190,18 +206,15 @@
                                 <div class="col-lg-12">
                                     <div class="product-review-info">
                                         <ul class="nav review-tab">
-                                        <li>
+                                            <li>
                                                 <a class="active" data-bs-toggle="tab" href="#tab_one">Xem Đánh Giá</a>
                                             </li>
-                                           
+
                                             <li>
                                                 <a data-bs-toggle="tab" href="#tab_two">Xem Bình Luận</a>
                                             </li>
                                             <li>
                                                 <a data-bs-toggle="tab" href="#tab_three">Bình Luận</a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tab" href="#tab_four">Đánh Giá </a>
                                             </li>
                                         </ul>
                                         <div class="tab-content reviews-tab">
@@ -215,30 +228,37 @@
                                                         <tr>
                                                             <th scope="col">Nội Dung</th>
                                                             <th scope="col">Số Sao</th>
+                                                            <th scope="col">Size</th>
                                                             <th scope="col">Người Đánh Giá</th>
                                                             <th scope="col">Ngày Đánh Giá</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php if (!empty($listEvaluation)): ?>
-                                                            <?php foreach ($listEvaluation as $Evaluation): ?>
-                                                                <tr>
-                                                                    <td><?php echo htmlspecialchars($Evaluation['noi_dung']); ?></td>
-                                                                    <td><?php echo htmlspecialchars($Evaluation['so_sao']); ?> Sao</td>
-                                                                    <td><?php echo htmlspecialchars($Evaluation['ho_ten']); ?></td>
-                                                                    <td>
-                                                                        <span>
-                                                                            <?php echo date('d-m-Y', strtotime($Evaluation['ngay_tao'])); ?>
-                                                                        </span>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php endforeach; ?>
+                                                        <?php foreach ($listEvaluation as $Evaluation): ?>
+                                                        <tr>
+                                                            <td><?php echo htmlspecialchars($Evaluation['noi_dung']); ?>
+                                                            </td>
+                                                            <td><?php echo htmlspecialchars($Evaluation['so_sao']); ?>
+                                                                Sao</td>
+                                                            <td><?php echo htmlspecialchars($Evaluation['size_value']); ?>
+                                                            </td>
+                                                            <td><?php echo htmlspecialchars($Evaluation['ho_ten']); ?>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    <?php echo date('d-m-Y', strtotime($Evaluation['ngay_tao'])); ?>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <?php endforeach; ?>
                                                         <?php else: ?>
-                                                            <tr>
-                                                                <td colspan="4" class="text-center text-danger">
-                                                                    <i class="bi bi-exclamation-circle-fill"></i> Không có đánh giá nào!
-                                                                </td>
-                                                            </tr>
+                                                        <tr>
+                                                            <td colspan="4" class="text-center text-danger">
+                                                                <i class="bi bi-exclamation-circle-fill"></i> Không có
+                                                                đánh giá nào!
+                                                            </td>
+                                                        </tr>
                                                         <?php endif; ?>
                                                     </tbody>
                                                 </table>
@@ -303,6 +323,8 @@
                                                         value="<?= $selectedVariant['spbt_id'] ?>">
                                                     <input type="hidden" id="selected-size-id" name="size_id"
                                                         value="<?= $selectedVariant['size_id'] ?>">
+                                                    <input type="hidden" name="sp_id"
+                                                        value="<?= $sp_id ?>">
 
                                                     <div class="form-group row">
                                                         <div class="col">
@@ -318,43 +340,6 @@
                                                         <button class="btn btn-sqr btn-primary" type="submit">Gửi bình
                                                             luận</button>
                                                     </div>
-                                                </form>
-
-                                            </div>
-                                            <div class="tab-pane fade" id="tab_four">
-                                                <form action="<?php echo BASE_URL . '?act=addEvaluation'; ?>" method="POST" class="review-form">
-                                                    <input type="hidden" name="spbt_id" value="<?php echo $spbt_id; ?>"> <!-- Gửi ID sản phẩm -->
-
-                                                    <!-- Nội dung đánh giá -->
-                                                    <div class="form-group row">
-                                                        <div class="col">
-                                                            <label class="col-form-label">
-                                                                <span class="text-danger">*</span> Nội dung đánh giá
-                                                            </label>
-                                                            <textarea name="noi_dung" class="form-control" rows="3" placeholder="Nhập đánh giá của bạn..." required></textarea>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Số sao đánh giá -->
-                                                    <div class="form-group row">
-                                                        <div class="col">
-                                                            <label class="col-form-label"><span class="text-danger">*</span> Số sao</label>
-                                                            &nbsp;&nbsp;&nbsp; 1&nbsp;
-                                                            <input type="radio" value="1" name="rating">
-                                                            &nbsp;
-                                                            <input type="radio" value="2" name="rating">
-                                                            &nbsp;
-                                                            <input type="radio" value="3" name="rating">
-                                                            &nbsp;
-                                                            <input type="radio" value="4" name="rating">
-                                                            &nbsp;
-                                                            <input type="radio" value="5" name="rating" checked>
-                                                            &nbsp;5
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Nút gửi đánh giá -->
-                                                    <button class="btn btn-sqr btn-primary" type="submit">Gửi đánh giá</button>
                                                 </form>
 
                                             </div>
@@ -400,7 +385,7 @@
                             <div class="product-item">
                                 <figure class="product-thumb">
                                     <a
-                                        href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['sp_id'] . '&size_id=' . $product['size_id']; ?>">
+                                        href="<?php echo BASE_URL . '?act=chi-tiet-san-pham&id=' . $product['spbt_id'].'&size_id='.$product['size_id'].'&sp_id='.$product['sp_id']; ?>">
                                         <img src="<?php echo $product['img_sp']; ?>"
                                             alt="Ảnh sản phẩm" class="img-fluid">
                                         <p style="font-size: 1.3vw; font-weight:700;color:red">
@@ -441,16 +426,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const sizeButtons = document.querySelectorAll('.size-btn');
-            const selectedPrice = document.getElementById('selected-price');
-            const originalPrice = document.getElementById('original-price');
-            const selectedStock = document.getElementById('selected-stock');
-            const selectedSizeId = document.getElementById('selected-size-id');
-            const selectedSpbtId = document.getElementById('selected-spbt-id');
-            const quantityInput = document.getElementById('quantity-input');
-            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            const sizeButtons = document.querySelectorAll('.size-btn'); // Lấy tất cả nút size
 
-            // Xử lý khi chọn size
             sizeButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     // Lấy dữ liệu từ các thuộc tính data-
@@ -460,12 +437,22 @@
                     const stock = parseInt(this.dataset.stock);
                     const spbtId = this.dataset.spbtId;
 
-                    // Cập nhật các giá trị trên giao diện
-                    selectedSizeId.value = sizeId;
-                    selectedSpbtId.value = spbtId;
-                    selectedStock.textContent = stock;
+                    // Cập nhật tất cả các input có class tương ứng (trong và ngoài form)
+                    document.querySelectorAll('.selected-size-id').forEach(input => {
+                        input.value = sizeId;
+                    });
+
+                    document.querySelectorAll('.selected-spbt-id').forEach(input => {
+                        input.value = spbtId;
+                    });
 
                     // Cập nhật giá và giá khuyến mãi
+                    const selectedPrice = document.getElementById('selected-price');
+                    const originalPrice = document.getElementById('original-price');
+                    const selectedStock = document.getElementById('selected-stock');
+                    const quantityInput = document.getElementById('quantity-input');
+                    const addToCartBtn = document.getElementById('add-to-cart-btn');
+
                     if (discount > 0) {
                         selectedPrice.textContent = discount.toLocaleString() + '₫';
                         originalPrice.textContent = price.toLocaleString() + '₫';
@@ -475,9 +462,11 @@
                         originalPrice.style.display = 'none';
                     }
 
-                    // Cập nhật số lượng tối đa cho input số lượng
+                    // Cập nhật số lượng sản phẩm
+                    selectedStock.textContent = stock;
                     quantityInput.max = stock;
-                    quantityInput.value = 1; // Reset số lượng về 1
+                    quantityInput.value = stock > 0 ? 1 :
+                        0; // Reset số lượng về 1 hoặc 0 nếu hết hàng
                     addToCartBtn.disabled = stock === 0; // Vô hiệu hóa nút nếu hết hàng
                 });
             });

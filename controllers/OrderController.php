@@ -2,6 +2,7 @@
 
 class OrderController
 {
+    public $product;
     private $cartModel;
     private $orderModel;
     public $category;
@@ -9,6 +10,7 @@ class OrderController
 
     public function __construct()
     {
+        $this->product = new Product();
         $this->cartModel = new CartModel();
         $this->orderModel = new OrderModel();
         $this->category = new Category();
@@ -40,21 +42,41 @@ class OrderController
         foreach ($selectedItems as $item) {
             $this->cartModel->deleteCart($item['id']);
         }
-        
-        // var_dump($order_id);
-        // die;
-        // Chuyển đến trang lịch sử đơn hàng
-        header('Location: ' . BASE_URL . '?act=lich-su-don&id=' . $tk_id);
-        exit;
+        if ($order_id) {
+            echo "<script>
+                    alert('Đơn hàng đã được xác nhận thành công!');
+                    window.location.href = '" . BASE_URL . "?act=lich-su-don&id=" . $tk_id . "';
+                  </script>";
+            exit;
+        } else {
+            echo "<script>
+                    alert('Xác nhận đơn hàng thất bại. Vui lòng thử lại.');
+                    window.location.href = '" . BASE_URL . "?act=xac-nhan-don&id=" . $tk_id . "';
+                  </script>";
+            exit;
+        }
+    }
+
+    public function orderHistory()
+{
+    $tk_id = $_GET['id'];
+    $listCategory = $this->category->getAllCategory();
+    $orders = $this->orderModel->getOrdersByUser($tk_id);
+    
+    $allRatedStatus = [];
+    foreach ($orders as $order) {
+        if ($order['trang_thai'] == 3) {
+            // Kiểm tra xem tất cả các sản phẩm trong đơn hàng đã được đánh giá chưa
+            $allRatedStatus[$order['order_id']] = $this->orderModel->checkAllProductsRated($tk_id, $order['order_id']);
+        } else {
+            // Nếu đơn hàng chưa giao, không thể đánh giá
+            $allRatedStatus[$order['order_id']] = false;
+        }
     }
     
-    public function orderHistory()
-    {
-        $tk_id = $_GET['id'];
-        $listCategory = $this->category->getAllCategory();
-        $orders = $this->orderModel->getOrdersByUser($tk_id);
-        require_once './views/historyOrder.php';
-    }
+    require_once './views/historyOrder.php';
+}
+
 
     public function detailOrder()
     {
@@ -62,12 +84,28 @@ class OrderController
         $listCategory = $this->category->getAllCategory();
         $detailDonHang = $this->orderModel->getDetailOrder($order_id);
         // var_dump($detailDonHang['tk_id']);die;
-        $productDonHang = $this->orderModel->getProductOrder($order_id);
+        $productDonHang = $this->orderModel->getOrderDetails($order_id);
         // var_dump($productDonHang);die;
         if ($detailDonHang && $productDonHang) {
             require_once "./views/chitietOrder.php";
         } else {
-            header('location: ' . BASE_URL . '?act=lich-su-don&tk_id='.$detailDonHang['tk_id']);
+            header('location: ' . BASE_URL . '?act=lich-su-don&id='.$detailDonHang['tk_id']);
         }
     }
+
+public function showReviewForm()
+{
+    $order_id = $_GET['order_id'];
+    $tk_id = $_GET['tk_id'];
+    $listCategory = $this->category->getAllCategory();
+    
+    // Lấy thông tin các sản phẩm trong đơn hàng
+    $orderDetails = $this->orderModel->getOrderDetails($order_id);
+
+    // Lấy thông tin về trạng thái đánh giá của từng sản phẩm
+    $ratings = $this->orderModel->getProductRatings($tk_id, $order_id);
+    
+    require_once './views/danhGia.php';
+}
+
 }
