@@ -94,10 +94,11 @@
                                             <?= $product['ten_sp'] ?>
                                         </h2>
                                         <div class="ratings d-flex">
+                                            
                                             <?php
                                             $sosao = round($sosaoData['sosao'], 1); // Làm tròn đến 1 chữ số
     $sodanhgia = $sosaoData['sodanhgia'];
-
+                                            echo'<h5>'. $sosao .'/5&nbsp</h5>';
     // Hiển thị ngôi sao (đầy hoặc trống)
     for ($i = 1; $i <= 5; $i++): ?>
                                             <?php if ($i <= floor($sosao)): ?>
@@ -108,7 +109,6 @@
                                             <span><i class="fa fa-star-o"></i></span> <!-- Sao trống -->
                                             <?php endif; ?>
                                             <?php endfor; ?>
-
                                             <div class="pro-review">
                                                 <span><?= $sodanhgia ?>
                                                     Đánh giá</span>
