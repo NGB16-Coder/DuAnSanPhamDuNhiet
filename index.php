@@ -51,7 +51,6 @@ match ($act) {
     'addBinhLuan' => (new HomeController())->addBinhLuan(),
     'listCommentByProduct' => (new HomeController())->listCommentByProduct(),
 
-
     // chức năng đánh giá
     'danh-gia' => (new OrderController())->showReviewForm(),
     'addEvaluation' => (new HomeController())->addEvaluation(),

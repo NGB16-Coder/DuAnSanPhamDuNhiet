@@ -100,9 +100,6 @@ class Product
         }
     }
 
-
-
-
     // Thêm bình luận
     public function addBinhLuan($tk_id, $spbt_id, $noi_dung)
     {
