@@ -49,10 +49,10 @@ match ($act) {
 
     // chuc nang binh luan
     'addBinhLuan' => (new HomeController())->addBinhLuan(),
-    'listCommentByProduct' => (new HomeController())->listCommentByProduct(),
+    // 'listCommentByProduct' => (new HomeController())->listCommentByProduct(),
 
     // chức năng đánh giá
     'danh-gia' => (new OrderController())->showReviewForm(),
     'addEvaluation' => (new HomeController())->addEvaluation(),
-    'listEvaluationByProduct' => (new HomeController())->listEvaluationByProduct(),
+    // 'listEvaluationByProduct' => (new HomeController())->listEvaluationByProduct(),
 };

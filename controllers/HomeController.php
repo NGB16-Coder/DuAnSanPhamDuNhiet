@@ -244,7 +244,7 @@ class HomeController
     public function listEvaluationByProduct()
     {
         $sp_id = $_GET['sp_id'];
-        session_start();
+        var_dump($sp_id);die;
         $listEvaluation = $this->product->getEvaluationByProduct($sp_id);
         require_once "./views/detailProduct.php";
     }
