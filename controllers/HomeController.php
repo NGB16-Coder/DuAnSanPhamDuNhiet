@@ -18,12 +18,18 @@ class HomeController
     }
     public function trangchu()
     {
-        $listProduct = $this->product->getAll();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['search'])) {
+            $listProduct = $this->product->loc($_POST['search']);
+            // var_dump($listProduct); // In ra mảng sản phẩm
+        } else {                                               
+            // Nếu không có tìm kiếm, lấy tất cả sản phẩm
+            $listProduct = $this->product->getAll();
+        }
         $listCategory = $this->category->getAllCategory();
-        // var_dump($listCategory);
-        // die;
+      
         require_once './trangchu.php';
     }
+    
     public function gioiThieu()
     {
         $listCategory = $this->category->getAllCategory();
