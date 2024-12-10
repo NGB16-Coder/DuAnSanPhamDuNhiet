@@ -184,7 +184,8 @@ class AdminProductController
     {
         // Lấy ra thông tin sản phẩm cần xóa
         $sp_id = $_GET['id'];
-        $product = $this->modelProduct->getDetailProduct($sp_id);
+        // var_dump($sp_id);die;
+        $product = $this->modelProduct->getSanPham($sp_id);
 
         if ($product) {
             deleteFile($product['img_sp']);

@@ -41,7 +41,7 @@ match ($act) {
     'them-vao-gio-hang' => (new CartController())->addToCart(),
     'gio-hang' => (new CartController())->showCart(),
 
-    'xoa-gio-hang'=> (new CartController())->deleteCart(),
+    'xoa-gio-hang' => (new CartController())->deleteCart(),
     'xac-nhan-don' => (new OrderController())->xacNhanDon(),
     'lich-su-don' => (new OrderController())->orderHistory(),
     'chi-tiet-don-hang' => (new OrderController())->detailOrder(),
@@ -52,8 +52,8 @@ match ($act) {
     'listCommentByProduct' => (new HomeController())->listCommentByProduct(),
 
 
-        // chức năng đánh giá
-     
-    'addEvaluation' =>(new HomeController())->addEvaluation(),
-    'listEvaluationByProduct' =>(new HomeController())->listEvaluationByProduct(),
+    // chức năng đánh giá
+    'danh-gia' => (new OrderController())->showReviewForm(),
+    'addEvaluation' => (new HomeController())->addEvaluation(),
+    'listEvaluationByProduct' => (new HomeController())->listEvaluationByProduct(),
 };

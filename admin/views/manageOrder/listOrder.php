@@ -31,7 +31,7 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped" style="text-align:center;">
+              <table class="table table-bordered dataTable table-striped" style="text-align:center;">
                 <thead>
                   <tr>
                     <th>Mã đơn hàng</th>
@@ -50,15 +50,19 @@
                   <?php foreach ($listOrder as $order): ?>
                   <tr>
                     <td>
-                      DH<?= $order['order_id'] ?>
+                      <?= $order['order_id'] ?>
                     </td>
                     <td>
                       <?= $order['tk_id'] ?>
                     </td>
-                    <td><?= $order['ten_nhan'] ? $order['ten_nhan'] :$order['ho_ten'] ?>
+                    <td>
+                      <?= $order['ten_nhan'] ? $order['ten_nhan'] : $order['ho_ten'] ?>
                     </td>
-                    <td><?= $order['sdt_nhan'] ? $order['sdt_nhan'] :$order['sdt']  ?></td>
-                    <td><?= $order['dia_chi_nhan'] ? $order['dia_chi_nhan'] :$order['dia_chi']  ?>
+                    <td>
+                      <?= $order['sdt_nhan'] ? $order['sdt_nhan'] : $order['sdt']  ?>
+                    </td>
+                    <td>
+                      <?= $order['dia_chi_nhan'] ? $order['dia_chi_nhan'] : $order['dia_chi']  ?>
                     </td>
                     <td>
                       <?= $order['tong_so_luong'] ?>
@@ -66,22 +70,27 @@
                     <td>
                       <?= number_format($order['tong_tien']) ?>
                     </td>
-                    <td><?= $order['ngay_dat'] ?>
+                    <td>
+                      <?= date('d/m/Y H:i', strtotime($order['ngay_dat'])) ?>
                     </td>
                     <td>
-                      <?php if($order['trang_thai'] == 1){
+                      <?php if($order['trang_thai'] == 1) {
                           echo'<p class="alert alert-info">Chờ xác nhận</p>';
-                      }elseif($order['trang_thai'] == 2){
-                        echo'<p class="alert alert-warning">Đang giao hàng</p>';
-                      }elseif($order['trang_thai'] == 3){
-                        echo'<p class="alert alert-success">Đã giao hàng</p>';
-                      }else{
-                        echo'<p class="alert alert-danger">Đơn bị hủy</p>';
+                      } elseif($order['trang_thai'] == 2) {
+                          echo'<p class="alert alert-warning">Đang giao hàng</p>';
+                      } elseif($order['trang_thai'] == 3) {
+                          echo'<p class="alert alert-success">Đã giao hàng</p>';
+                      } else {
+                          echo'<p class="alert alert-danger">Đơn bị hủy</p>';
                       } ?>
                     </td>
                     <td>
-                      <a href="<?= BASE_URL_ADMIN.'?act=update-trang-thai&id='.$order['order_id'] ?>"><button class="btn btn-primary">Cập nhật</button></a>
-                      <a href="<?= BASE_URL_ADMIN.'?act=detailOrder&id='.$order['order_id'] ?>"><button class="btn btn-info mt-2">Chi tiết</button></a>
+                      <a
+                        href="<?= BASE_URL_ADMIN.'?act=update-trang-thai&id='.$order['order_id'] ?>"><button
+                          class="btn btn-primary">Cập nhật</button></a>
+                      <a
+                        href="<?= BASE_URL_ADMIN.'?act=detailOrder&id='.$order['order_id'] ?>"><button
+                          class="btn btn-info mt-2">Chi tiết</button></a>
                     </td>
 
                   </tr>

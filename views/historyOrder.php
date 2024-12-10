@@ -78,35 +78,42 @@
                                             <th>Tổng Tiền</th>
                                             <th>Ngày Đặt</th>
                                             <th>Trạng thái</th>
-                                            <th>Chi Tiết</th>
+                                            <th>Chức năng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-                                        // var_dump($orders);die;
-                                        foreach ($orders as $order): ?>
-                                            <tr>
-                                                <td>#ĐH<?= $order['order_id'] ?></td>
-                                                <td><?= $order['tong_so_luong'] ?></td>
-                                                <td><?= number_format($order['tong_tien']) ?>₫</td>
-                                                <td><?= date('d/m/Y H:i', strtotime($order['ngay_dat'])) ?></td>
-                                                <td>
-                                                    <?php if($order['trang_thai'] == 1){
-                                                        echo'<p class="alert alert-info">Chờ xác nhận</p>';
-                                                    }elseif($order['trang_thai'] == 2){
-                                                        echo'<p class="alert alert-warning">Đang giao hàng</p>';
-                                                    }elseif($order['trang_thai'] == 3){
-                                                        echo'<p class="alert alert-success">Đã giao hàng</p>';
-                                                    }else{
-                                                        echo'<p class="alert alert-danger">Đã hủy</p>';
-                                                    } ?>
-                                                </td>
-                                                <td>
-                                                    <a href="<?= BASE_URL.'?act=chi-tiet-don-hang&id='.$order['order_id'] ?>" class="btn btn-info">Xem Chi Tiết</a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
+    <?php foreach ($orders as $order): ?>
+        <tr>
+            <td>#ĐH<?= $order['order_id'] ?></td>
+            <td><?= $order['tong_so_luong'] ?></td>
+            <td><?= number_format($order['tong_tien']) ?>₫</td>
+            <td><?= date('d/m/Y H:i', strtotime($order['ngay_dat'])) ?></td>
+            <td>
+                <?php if($order['trang_thai'] == 1){
+                    echo '<p class="alert alert-info">Chờ xác nhận</p>';
+                } elseif($order['trang_thai'] == 2) {
+                    echo '<p class="alert alert-warning">Đang giao hàng</p>';
+                } elseif($order['trang_thai'] == 3) {
+                    echo '<p class="alert alert-success">Đã giao hàng</p>';
+                } else {
+                    echo '<p class="alert alert-danger">Đã hủy</p>';
+                } ?>
+            </td>
+            <td>
+                <?php if ($order['trang_thai'] == 3) { ?>
+                    <?php if ($allRatedStatus[$order['order_id']]) { ?>
+                        <a href="<?= BASE_URL.'?act=chi-tiet-don-hang&id='.$order['order_id'] ?>" class="btn btn-primary">Xem Chi Tiết</a>
+                    <?php } else { ?>
+                        <a href="<?= BASE_URL.'?act=danh-gia&tk_id='.$tk_id.'&order_id='.$order['order_id'] ?>" class="btn btn-warning mt-1">Đánh Giá</a>
+                    <?php } ?>
+                <?php }else{ ?>
+                    <a href="<?= BASE_URL.'?act=chi-tiet-don-hang&id='.$order['order_id'] ?>" class="btn btn-primary">Xem Chi Tiết</a>
+                <?php } ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+
                                 </table>
                             <?php else: ?>
                                 <div style="text-align: center; margin: 20px; font-size: 1.5rem; font-weight: bold;">
